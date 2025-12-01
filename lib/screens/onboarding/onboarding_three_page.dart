@@ -71,7 +71,11 @@ Stack _vectorTextAndButton(context, OnboardingProvider onboardingProvider) {
         bottom: 24,
         child: AppButton(
           ontap: () {
-            Navigator.pushNamed(context, AppRoute.homePage);
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              AppRoute.homePage,
+              (route) => false,
+            );
             onboardingProvider.completed();
           },
           textButton: 'Next',

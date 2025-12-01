@@ -4,12 +4,18 @@ import 'package:flutter/material.dart';
 
 class AppButton extends StatelessWidget {
   final GestureTapCallback ontap;
-  final String textButton;
+  final String? textButton;
   final TextStyle? style;
+  final Widget? child;
+  final bool isBorderbox;
+  final Color? color;
   const AppButton({
     super.key,
+    this.color,
+    this.isBorderbox = false,
+    this.child,
     required this.ontap,
-    required this.textButton,
+    this.textButton,
     this.style,
   });
 
@@ -20,23 +26,31 @@ class AppButton extends StatelessWidget {
     final screenWidth = screen.width;
     return InkWell(
       onTap: ontap,
-      child: Padding(
-        padding: EdgeInsets.fromLTRB(24, 0, 24, 0),
-        child: Container(
-          width: screenWidth - 32,
-          height: (48 / 812) * screenHeight,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            color: AppColor.brightBlue,
-          ),
-          child: Align(
+      child:
+          child ??
+          Container(
+            width: screenWidth - 32,
+            height: (48 / 812) * screenHeight,
+            decoration: isBorderbox
+                ? BoxDecoration(
+                    border: Border.all(
+                      color: color ?? AppColor.brightBlue,
+                      width: 2,
+                      style: BorderStyle.solid,
+                    ),
+                    borderRadius: BorderRadius.circular(12),
+                    color: Colors.white,
+                  )
+                : BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    color: color ?? AppColor.brightBlue,
+                  ),
+            alignment: Alignment.center,
             child: Text(
-              textButton,
+              textButton ?? '',
               style: style ?? AppTextstyle.tsMediumWhite16,
             ),
           ),
-        ),
-      ),
     );
   }
 }
