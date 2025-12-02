@@ -26,4 +26,7 @@ class AppPath {
   static const String icUserPlus = 'assets/icons/ic_user_plus.svg';
   static const String icTheme = 'assets/icons/ic_theme.svg';
   static const String icQuestion = 'assets/icons/ic_question.svg';
+  static const String icApple = 'assets/icons/ic_apple.svg';
+  static const String icGoogle = 'assets/icons/ic_google.svg';
+  static const String icFacebook = 'assets/icons/ic_facebook.svg';
 }

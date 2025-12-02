@@ -7,10 +7,18 @@ class AppButton extends StatelessWidget {
   final String? textButton;
   final TextStyle? style;
   final Widget? child;
+  final Widget? childContent;
   final bool isBorderbox;
   final Color? color;
+  final double? widthBorder;
+  final double? height;
+  final double? width;
   const AppButton({
     super.key,
+    this.height,
+    this.width,
+    this.childContent,
+    this.widthBorder,
     this.color,
     this.isBorderbox = false,
     this.child,
@@ -29,13 +37,13 @@ class AppButton extends StatelessWidget {
       child:
           child ??
           Container(
-            width: screenWidth - 32,
-            height: (48 / 812) * screenHeight,
+            width: width ?? screenWidth - 32,
+            height: height ?? (48 / 812) * screenHeight,
             decoration: isBorderbox
                 ? BoxDecoration(
                     border: Border.all(
                       color: color ?? AppColor.brightBlue,
-                      width: 2,
+                      width: widthBorder ?? 2,
                       style: BorderStyle.solid,
                     ),
                     borderRadius: BorderRadius.circular(12),
@@ -46,10 +54,12 @@ class AppButton extends StatelessWidget {
                     color: color ?? AppColor.brightBlue,
                   ),
             alignment: Alignment.center,
-            child: Text(
-              textButton ?? '',
-              style: style ?? AppTextstyle.tsMediumWhite16,
-            ),
+            child:
+                childContent ??
+                Text(
+                  textButton ?? '',
+                  style: style ?? AppTextstyle.tsMediumWhite16,
+                ),
           ),
     );
   }
