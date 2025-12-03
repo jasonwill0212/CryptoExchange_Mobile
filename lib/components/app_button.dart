@@ -1,30 +1,34 @@
 import 'package:cryptoexchange/components/app_color.dart';
 import 'package:cryptoexchange/components/app_textstyle.dart';
+import 'package:cryptoexchange/core/enum/enum.dart';
 import 'package:flutter/material.dart';
 
 class AppButton extends StatelessWidget {
-  final GestureTapCallback ontap;
+  final VoidCallback ontap;
+  final ButtonType buttonType;
+  final String? prefixIconPath;
+  final String? suffixIconPath;
+
   final String? textButton;
   final TextStyle? style;
   final Widget? child;
   final Widget? childContent;
-  final bool isBorderbox;
-  final Color? color;
-  final double? widthBorder;
   final double? height;
   final double? width;
+
   const AppButton({
     super.key,
     this.height,
     this.width,
     this.childContent,
-    this.widthBorder,
-    this.color,
-    this.isBorderbox = false,
     this.child,
     required this.ontap,
     this.textButton,
     this.style,
+
+    this.buttonType = ButtonType.normal,
+    this.prefixIconPath,
+    this.suffixIconPath,
   });
 
   @override
@@ -39,20 +43,17 @@ class AppButton extends StatelessWidget {
           Container(
             width: width ?? screenWidth - 32,
             height: height ?? (48 / 812) * screenHeight,
-            decoration: isBorderbox
-                ? BoxDecoration(
-                    border: Border.all(
-                      color: color ?? AppColor.brightBlue,
-                      width: widthBorder ?? 2,
+            decoration: BoxDecoration(
+              border: buttonType == ButtonType.second
+                  ? Border.all(
+                      color: AppColor.brightBlue,
+                      width: 2,
                       style: BorderStyle.solid,
-                    ),
-                    borderRadius: BorderRadius.circular(12),
-                    color: Colors.white,
-                  )
-                : BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    color: color ?? AppColor.brightBlue,
-                  ),
+                    )
+                  : null,
+              borderRadius: BorderRadius.circular(12),
+              color: _buildBackgroundColor(),
+            ),
             alignment: Alignment.center,
             child:
                 childContent ??
@@ -62,5 +63,16 @@ class AppButton extends StatelessWidget {
                 ),
           ),
     );
+  }
+
+  Color _buildBackgroundColor() {
+    switch (buttonType) {
+      case ButtonType.normal:
+        return AppColor.brightBlue;
+      case ButtonType.second:
+        return AppColor.white;
+      case ButtonType.disable:
+        return AppColor.lightgrayishblue;
+    }
   }
 }

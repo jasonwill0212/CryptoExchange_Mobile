@@ -6,7 +6,6 @@ import 'package:cryptoexchange/components/app_textstyle.dart';
 import 'package:cryptoexchange/routes/app_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:provider/provider.dart';
 
 class SigninPage extends StatefulWidget {
   const SigninPage({super.key});
@@ -119,9 +118,6 @@ AppButton _socialButton(String apppath) {
     ontap: () {},
     height: 48,
     width: 48,
-    isBorderbox: true,
-    color: AppColor.lightgrayishblue,
-    widthBorder: 1,
     childContent: SvgPicture.asset(apppath),
   );
 }

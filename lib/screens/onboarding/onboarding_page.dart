@@ -12,6 +12,7 @@ class OnboardingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    /// TODO: Change to use PageView
     final onboarding = context.watch<OnboardingProvider>();
     if (onboarding.isLoading) {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));

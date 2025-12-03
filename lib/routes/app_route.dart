@@ -2,7 +2,7 @@ import 'package:cryptoexchange/screens/navigationbottom/bottomnavigationbar.dart
 import 'package:cryptoexchange/screens/onboarding/onboarding_page.dart';
 import 'package:cryptoexchange/screens/onboarding/onboarding_three_page.dart';
 import 'package:cryptoexchange/screens/onboarding/onboarding_two_page.dart';
-import 'package:cryptoexchange/screens/setting_page.dart';
+import 'package:cryptoexchange/screens/settings/setting_page.dart';
 import 'package:cryptoexchange/screens/signin_signup/signin_page.dart';
 import 'package:cryptoexchange/screens/signin_signup/signinandsignup_page.dart';
 import 'package:flutter/widgets.dart';

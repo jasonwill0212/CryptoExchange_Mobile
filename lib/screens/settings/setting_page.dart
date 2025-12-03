@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:cryptoexchange/components/app_button.dart';
 import 'package:cryptoexchange/components/app_card.dart';
 import 'package:cryptoexchange/components/app_color.dart';
@@ -14,19 +12,16 @@ class SettingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String email = 'thuong@gmail.com';
     return Scaffold(
       backgroundColor: AppColor.almostWhite,
       appBar: _appBar(context),
-      body: SingleChildScrollView(child: _body()),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(horizontal: 16),
+        child: _bodyWidget(email),
+      ),
     );
   }
-}
-
-Padding _body() {
-  return Padding(
-    padding: EdgeInsets.only(left: 16),
-    child: _privacyFinanceAccountMoreAvatarNameEmailAndID(),
-  );
 }
 
 AppBar _appBar(context) {
@@ -55,11 +50,9 @@ Padding _appText(String text) {
   );
 }
 
-AppCard _avatarNameEmailAndID() {
+AppCard _avatarNameEmailAndID(String email) {
   return AppCard(
-    isShawdow: true,
-    width: 30,
-    height: 80,
+    padding: EdgeInsets.symmetric(horizontal: 14, vertical: 6),
     child: Row(
       children: [
         Column(
@@ -68,7 +61,6 @@ AppCard _avatarNameEmailAndID() {
           children: [
             Row(
               children: [
-                SizedBox(width: 14),
                 CircleAvatar(foregroundImage: AssetImage(AppPath.imgAvatar)),
                 SizedBox(width: 12),
                 Column(
@@ -80,7 +72,10 @@ AppCard _avatarNameEmailAndID() {
                       textAlign: TextAlign.left,
                     ),
                     AppText(
-                      text: 'to***@***.com',
+                      text: email,
+
+                      /// TODO: Implement email masking
+                      // text: 'to***@***.com',
                       style: AppTextstyle.tsRegulardarkNavyBlue14,
                     ),
                   ],
@@ -92,7 +87,6 @@ AppCard _avatarNameEmailAndID() {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(width: 14),
                 AppText(
                   text: 'ID 28954761',
                   style: AppTextstyle.tsRegulardarkNavyBlue14.copyWith(
@@ -101,7 +95,11 @@ AppCard _avatarNameEmailAndID() {
                 ),
                 SizedBox(width: 4),
                 AppButton(
-                  ontap: () {},
+                  ontap: () {
+                    /// TODO: Implement copy to clipboard functionality
+                    /// copy real email to clipboard
+                    /// show snackbar 'Copied to clipboard' success message
+                  },
                   child: SvgPicture.asset(AppPath.icCoppy),
                 ),
               ],
@@ -109,23 +107,20 @@ AppCard _avatarNameEmailAndID() {
           ],
         ),
         Spacer(),
-        Padding(
-          padding: EdgeInsets.only(right: 14),
-          child: AppCard(
-            width: 330,
-            height: 36,
-            color: AppColor.lightPastelGreen,
-            child: Row(
-              children: [
-                SizedBox(width: 9),
-                SvgPicture.asset(AppPath.icVerified),
-                SizedBox(width: 4),
-                AppText(
-                  text: 'Verified',
-                  style: AppTextstyle.tsRegulardarkNavyBlue14,
-                ),
-              ],
-            ),
+        AppCard(
+          width: 94,
+          height: 36,
+          color: AppColor.lightPastelGreen,
+          child: Row(
+            children: [
+              SizedBox(width: 9),
+              SvgPicture.asset(AppPath.icVerified),
+              SizedBox(width: 4),
+              AppText(
+                text: 'Verified',
+                style: AppTextstyle.tsRegulardarkNavyBlue14,
+              ),
+            ],
           ),
         ),
       ],
@@ -135,7 +130,7 @@ AppCard _avatarNameEmailAndID() {
 
 AppCard _privacy() {
   return AppCard(
-    width: 30,
+    margin: EdgeInsets.fromLTRB(16, 0, 15, 0),
     height: 112,
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -152,7 +147,7 @@ AppCard _privacy() {
 
 AppCard _finance() {
   return AppCard(
-    width: 30,
+    margin: EdgeInsets.fromLTRB(16, 0, 15, 0),
     height: 112,
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -169,7 +164,7 @@ AppCard _finance() {
 
 AppCard _account() {
   return AppCard(
-    width: 30,
+    margin: EdgeInsets.fromLTRB(16, 0, 15, 0),
     height: 112,
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -186,7 +181,7 @@ AppCard _account() {
 
 AppCard _more() {
   return AppCard(
-    width: 30,
+    margin: EdgeInsets.fromLTRB(16, 0, 15, 0),
     height: 168,
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -238,12 +233,12 @@ Align _line() {
 }
 
 //Privacy and Finance, Account, More, avatarnameEmailAndID
-Column _privacyFinanceAccountMoreAvatarNameEmailAndID() {
+Column _bodyWidget(String email) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       SizedBox(height: 16),
-      _avatarNameEmailAndID(),
+      _avatarNameEmailAndID(email),
       SizedBox(height: 16),
       _appText('Privacy'),
       SizedBox(height: 8),
@@ -270,7 +265,6 @@ Column _privacyFinanceAccountMoreAvatarNameEmailAndID() {
 AppButton _button() {
   return AppButton(
     ontap: () {},
-    isBorderbox: true,
     textButton: 'Log Out',
     style: AppTextstyle.tsMediumbrightBlue16,
   );

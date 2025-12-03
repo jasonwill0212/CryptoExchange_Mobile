@@ -72,7 +72,6 @@ AppButton _buttonSigninAndSignup(
       : AppButton(
           ontap: ontap,
           textButton: label,
-          isBorderbox: true,
           style: AppTextstyle.tsMediumbrightBlue16,
         );
 }
@@ -84,10 +83,6 @@ Padding _appButtonFacebookGoogleApple(String label, String apppath, context) {
       ontap: () {
         Navigator.pushNamed(context, AppRoute.homePage);
       },
-      isBorderbox: true,
-      widthBorder: 1,
-      color: AppColor.lightgrayishblue,
-
       childContent: Row(
         children: [
           SizedBox(width: 14),
