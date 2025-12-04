@@ -1,4 +1,4 @@
-import 'package:cryptoexchange/screens/navigationbottom/bottomnavigationbar.dart';
+import 'package:cryptoexchange/screens/bottom_tab/bottomnavigationbar.dart';
 import 'package:cryptoexchange/screens/onboarding/onboarding_page.dart';
 import 'package:cryptoexchange/screens/onboarding/onboarding_three_page.dart';
 import 'package:cryptoexchange/screens/onboarding/onboarding_two_page.dart';

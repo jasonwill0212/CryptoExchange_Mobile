@@ -1,10 +1,10 @@
 import 'package:cryptoexchange/components/app_color.dart';
 import 'package:cryptoexchange/provider/bottomnavigation_provider.dart';
-import 'package:cryptoexchange/screens/navigationbottom/favorites_screen.dart';
-import 'package:cryptoexchange/screens/navigationbottom/home_screen.dart';
-import 'package:cryptoexchange/screens/navigationbottom/market_screen.dart';
-import 'package:cryptoexchange/screens/navigationbottom/trade_screen.dart';
-import 'package:cryptoexchange/screens/navigationbottom/wallet_screen.dart';
+import 'package:cryptoexchange/screens/favorite/favorites_screen.dart';
+import 'package:cryptoexchange/screens/home/home_screen.dart';
+import 'package:cryptoexchange/screens/market/market_screen.dart';
+import 'package:cryptoexchange/screens/trade/trade_screen.dart';
+import 'package:cryptoexchange/screens/wallet/wallet_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -43,6 +43,7 @@ BottomNavigationBar _bottomNavigationBar(
     unselectedItemColor: Color(0XFF696F8C),
     type: BottomNavigationBarType.fixed,
     items: const [
+      /// TODO: Image assets can be used instead of Icons
       BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
       BottomNavigationBarItem(icon: Icon(Icons.swap_horiz), label: 'Trade'),
       BottomNavigationBarItem(icon: Icon(Icons.show_chart), label: 'Market'),
