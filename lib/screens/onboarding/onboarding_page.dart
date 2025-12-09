@@ -1,87 +1,128 @@
 import 'package:cryptoexchange/components/app_button.dart';
+import 'package:cryptoexchange/components/app_color.dart';
 import 'package:cryptoexchange/components/app_path.dart';
 import 'package:cryptoexchange/components/app_text.dart';
 import 'package:cryptoexchange/components/app_textstyle.dart';
+import 'package:cryptoexchange/core/enum/enum.dart';
 import 'package:cryptoexchange/provider/onboarding_provider.dart';
+import 'package:cryptoexchange/provider/storage_provider.dart';
 import 'package:cryptoexchange/routes/app_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class OnboardingPage extends StatelessWidget {
+class OnboardingPage extends StatefulWidget {
   const OnboardingPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    /// TODO: Change to use PageView
-    final onboarding = context.watch<OnboardingProvider>();
-    if (onboarding.isLoading) {
-      return const Scaffold(body: Center(child: CircularProgressIndicator()));
-    }
+  State<OnboardingPage> createState() => _OnboardingPageState();
+}
 
-    if (onboarding.isCompleted) {
+class _OnboardingPageState extends State<OnboardingPage> {
+  @override
+  Widget build(BuildContext context) {
+    final storageProvider = context.watch<StorageProvider>();
+    final onboardingProvider = context.watch<OnboardingProvider>();
+
+    if (storageProvider.isLoading) {
+      return Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
+    if (storageProvider.isCompleted) {
       Future.microtask(() {
         if (context.mounted) {
-          Navigator.pushReplacementNamed(context, AppRoute.homePage);
+          Navigator.pushReplacementNamed(context, AppRoute.authPage);
         }
       });
     }
-
-    return Scaffold(body: _body(context));
-  }
-}
-
-//body
-Center _body(context) {
-  return Center(
-    child: Column(
-      children: [
-        Padding(
-          padding: EdgeInsets.fromLTRB(110, 50, 111, 81),
-          child: Image.asset(AppPath.imgCoinMoney),
-        ),
-        Image.asset(AppPath.imgPeopleillustration),
-        _vectorTextAndButton(context),
-      ],
-    ),
-  );
-}
-
-// Vector Text Button
-Stack _vectorTextAndButton(context) {
-  return Stack(
-    alignment: Alignment.center,
-    children: [
-      Image.asset(AppPath.imgVector, width: double.infinity, fit: BoxFit.cover),
-
-      Positioned(
-        child: Column(
+    return Consumer(
+      builder: (context, storageProvider, _) => Scaffold(
+        body: Column(
           children: [
-            AppText(
-              text: 'Take hold of your\nfinances',
-              style: AppTextstyle.tssemiBolddarkNavyBlue32.copyWith(
-                height: 1.0,
+            Expanded(
+              child: PageView(
+                controller: onboardingProvider.pageController,
+                onPageChanged: (index) {
+                  onboardingProvider.setCurrentPage(index);
+                },
+                children: [
+                  _onboardingItem(
+                    onboardingProvider.currentPage,
+                    onboardingProvider.pageController,
+                    context,
+
+                    "Take hold of your\nfinances",
+                    "Lorem ipsum dolor sit amet, consectetur\nadipiscing elit. Ut eget mauris massa pharetra.",
+                    AppPath.imgPeopleillustration,
+                  ),
+                  _onboardingItem(
+                    onboardingProvider.currentPage,
+                    onboardingProvider.pageController,
+                    context,
+
+                    "Smart trading tools",
+                    "Lorem ipsum dolor sit amet, consectetur\nadipiscing elit. Ut eget mauris massa pharetra.",
+                    AppPath.imgPhoneillustration,
+                  ),
+                  _onboardingItem(
+                    onboardingProvider.currentPage,
+                    onboardingProvider.pageController,
+                    context,
+
+                    "Invest in the future",
+                    "Lorem ipsum dolor sit amet, consectetur\nadipiscing elit. Ut eget mauris massa pharetra.",
+                    AppPath.imgLaptopillustration,
+                  ),
+                ],
               ),
-            ),
-            SizedBox(height: 8),
-            AppText(
-              text:
-                  'Lorem ipsum dolor sit amet, consectetur\nadipiscing elit. Ut eget mauris massa pharetra.',
-              style: AppTextstyle.tsRegulardarkNavyBlue14,
-              textAlign: TextAlign.center,
             ),
           ],
         ),
       ),
+    );
+  }
+}
 
-      Positioned(
-        bottom: 24,
-        child: AppButton(
-          ontap: () {
-            Navigator.pushNamed(context, AppRoute.onboardingPageTwo);
-          },
-          textButton: 'Next',
+Container _onboardingItem(
+  currentPageIndex,
+  pageController,
+  BuildContext context,
+  String title,
+  String description,
+  String imagePath,
+) {
+  final onboardingPage = context.read<OnboardingProvider>();
+  return Container(
+    decoration: BoxDecoration(color: AppColor.almostWhite),
+    child: Column(
+      children: [
+        SizedBox(height: 50),
+        Image.asset(AppPath.imgCoinMoney),
+        SizedBox(height: 50),
+        SizedBox(height: 372, child: Image.asset(imagePath)),
+        SizedBox(height: 66),
+        SizedBox(
+          height: 76,
+          child: Center(
+            child: AppText(
+              text: title,
+              style: AppTextstyle.tssemiBolddarkNavyBlue32.copyWith(height: 1),
+              textAlign: TextAlign.center,
+            ),
+          ),
         ),
-      ),
-    ],
+        SizedBox(height: 8),
+        AppText(
+          text: description,
+          style: AppTextstyle.tsRegulardarkNavyBlue14.copyWith(height: 1),
+        ),
+        SizedBox(height: 48),
+        AppButton(
+          textButton: 'Next',
+          buttonType: ButtonType.normal,
+          ontap: () async {
+            onboardingPage.nextPage(context);
+          },
+        ),
+      ],
+    ),
   );
 }

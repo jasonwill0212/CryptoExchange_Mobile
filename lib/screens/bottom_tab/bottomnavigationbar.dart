@@ -43,7 +43,6 @@ BottomNavigationBar _bottomNavigationBar(
     unselectedItemColor: Color(0XFF696F8C),
     type: BottomNavigationBarType.fixed,
     items: const [
-      /// TODO: Image assets can be used instead of Icons
       BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
       BottomNavigationBarItem(icon: Icon(Icons.swap_horiz), label: 'Trade'),
       BottomNavigationBarItem(icon: Icon(Icons.show_chart), label: 'Market'),

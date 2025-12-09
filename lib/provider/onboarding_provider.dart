@@ -1,27 +1,42 @@
+import 'package:cryptoexchange/provider/storage_provider.dart';
+import 'package:cryptoexchange/routes/app_route.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 
 class OnboardingProvider extends ChangeNotifier {
-  bool _isCompleted = false;
-  bool get isCompleted => _isCompleted;
-  bool _isLoading = true;
-  bool get isLoading => _isLoading;
+  int currentPage = 0;
+  late PageController pageController;
 
   OnboardingProvider() {
-    loadStatus();
+    pageController = PageController();
   }
 
-  Future<void> loadStatus() async {
-    final prefs = await SharedPreferences.getInstance();
-    _isCompleted = prefs.getBool('onboarding_Completed') ?? false;
-    _isLoading = false;
+  void setCurrentPage(int index) {
+    currentPage = index;
     notifyListeners();
   }
 
-  Future<void> completed() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('onboarding_Completed', true);
-    _isCompleted = true;
-    notifyListeners();
+  Future<void> nextPage(BuildContext context) async {
+    if (currentPage < 2) {
+      currentPage++;
+      await pageController.animateToPage(
+        currentPage,
+        duration: Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    } else {
+      notifyListeners();
+      final storageProvider = context.read<StorageProvider>();
+      await storageProvider.completed();
+      if (context.mounted) {
+        Navigator.pushReplacementNamed(context, AppRoute.authPage);
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    pageController.dispose();
+    super.dispose();
   }
 }

@@ -5,11 +5,11 @@ class CoinRepository {
   final BinanceWebsocketService _binanceWebsocketService =
       BinanceWebsocketService();
 
-  /// Expose ticker stream
-  Stream<Coin> get tickerStream => _binanceWebsocketService.tickerStream;
+  Future<void> connectToTickerStream(List<String> listcoins) async {
+    await _binanceWebsocketService.connectToTickerStream(listcoins);
+  }
 
-  /// Connect to ticker stream
-  Future<void> connectToTickerStream(String symbol) async {
-    await _binanceWebsocketService.connectToTickerStream(symbol);
+  Stream<Coin> getTickerStream() {
+    return _binanceWebsocketService.tickerStream;
   }
 }

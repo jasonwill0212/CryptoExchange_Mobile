@@ -20,36 +20,46 @@ class BinanceWebsocketService {
   /// Expose ticker stream -> for listening
   Stream<Coin> get tickerStream => _tickerStreamController.stream;
 
-  /// Connect to Binance Websocket for Ticker Stream
-  /// TODO: handle List<String> symbols
-  Future<void> connectToTickerStream(String symbol) async {
+  final listcoins = ['btcusdt', 'ethusdt', 'bnbusdt', 'adausdt', 'xrpusdt'];
+
+  /// Connect to ticker stream
+  Future<void> connectToTickerStream(List<String> listcoin) async {
     try {
-      final String url = '$_baseUrl${symbol.toLowerCase()}@ticker';
+      // Fix: Add @ticker suffix to each coin symbol
+      final streams = listcoin
+          .map((coin) => '${coin.toLowerCase()}@ticker')
+          .join('/');
 
-      _tickerWebSocketChannel = WebSocketChannel.connect(Uri.parse(url));
+      _tickerWebSocketChannel = WebSocketChannel.connect(
+        Uri.parse('$_baseUrl$streams'),
+      );
 
-      if (_tickerWebSocketChannel == null) {
-        throw Exception('Failed to connect to Binance WebSocket');
-      }
+      _tickerWebSocketChannel?.stream.listen(
+        (data) {
+          try {
+            final jsonData = jsonDecode(data);
 
-      _tickerWebSocketChannel?.stream.listen((data) {
-        debugPrint('Received data: $data');
-
-        /// Handle incoming data
-        final jsonData = jsonDecode(data);
-        if (jsonData != null && jsonData['data'] != null) {
-          final coinData = Coin.fromJson(jsonData['data']);
-
-          /// Add data to stream
-          _tickerStreamController.add(coinData);
-          debugPrint('Received Coin Data: ${coinData.toJson()}');
-        } else {
-          debugPrint('Invalid data format received: $jsonData');
-        }
-      });
+            // Handle the stream format: {"stream":"...", "data":{...}}
+            if (jsonData.containsKey('data')) {
+              final coin = Coin.fromJson(jsonData['data']);
+              _tickerStreamController.add(coin);
+            } else {
+              debugPrint('Unexpected data format: $jsonData');
+            }
+          } catch (e, stackTrace) {
+            debugPrint('Error parsing coin data: $e, stackTrace: $stackTrace');
+          }
+        },
+        onError: (error) {
+          debugPrint('WebSocket error: $error');
+        },
+        onDone: () {
+          debugPrint('WebSocket connection closed');
+        },
+        cancelOnError: false,
+      );
     } catch (e, stackTrace) {
-      // Handle connection errors
-      debugPrint('Error connecting to Binance WebSocket: $e, $stackTrace');
+      debugPrint('Error connecting to WebSocket: $e, stackTrace: $stackTrace');
     }
   }
 }

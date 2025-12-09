@@ -3,7 +3,7 @@ import 'package:cryptoexchange/repositories/coin_repository.dart';
 import 'package:flutter/material.dart';
 
 class DemoCoinProvider extends ChangeNotifier {
-  final CoinRepository _coinRepository = CoinRepository();
+  final CoinRepository coinRepository = CoinRepository();
 
   /// define state
   bool _isLoading = false;
@@ -16,26 +16,15 @@ class DemoCoinProvider extends ChangeNotifier {
   Coin? get coin => _coin;
 
   /// Connect to ticker stream
-  Future<void> connectToTickerStream(String symbol) async {
-    try {
-      _isLoading = true;
-      notifyListeners();
+  Future<void> connectToTickerStream(List<String> listcoins) async {
+    _isLoading = true;
+    notifyListeners();
+    await coinRepository.connectToTickerStream(listcoins);
+    _isLoading = false;
+    notifyListeners();
+  }
 
-      // Connect to ticker stream -> websocket
-      await _coinRepository.connectToTickerStream(symbol);
-
-      /// Listen to ticker stream
-      _coinRepository.tickerStream.listen((coinData) {
-        _coin = coinData;
-        notifyListeners();
-      });
-    } catch (e) {
-      _errorMessage = 'Error connecting to ticker stream: $e';
-      _isLoading = false;
-      notifyListeners();
-    } finally {
-      _isLoading = false;
-      notifyListeners();
-    }
+  Stream<Coin> getTickerStream() {
+    return coinRepository.getTickerStream();
   }
 }

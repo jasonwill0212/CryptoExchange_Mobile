@@ -1,4 +1,3 @@
-import 'package:cryptoexchange/components/app_button.dart';
 import 'package:cryptoexchange/components/app_color.dart';
 import 'package:cryptoexchange/components/app_path.dart';
 import 'package:cryptoexchange/components/app_text.dart';
@@ -19,7 +18,7 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-Column _body(context) {
+Column _body(BuildContext context) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
@@ -36,8 +35,8 @@ Column _body(context) {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  AppButton(
-                    ontap: () {
+                  InkWell(
+                    onTap: () {
                       Navigator.pushNamed(context, AppRoute.settingPage);
                     },
                     child: SvgPicture.asset(AppPath.icSetting),

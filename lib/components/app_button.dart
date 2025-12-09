@@ -1,78 +1,83 @@
 import 'package:cryptoexchange/components/app_color.dart';
-import 'package:cryptoexchange/components/app_textstyle.dart';
+import 'package:cryptoexchange/components/app_text.dart';
 import 'package:cryptoexchange/core/enum/enum.dart';
 import 'package:flutter/material.dart';
 
 class AppButton extends StatelessWidget {
-  final VoidCallback ontap;
+  final GestureTapCallback? ontap;
+  final String textButton;
   final ButtonType buttonType;
-  final String? prefixIconPath;
-  final String? suffixIconPath;
-
-  final String? textButton;
-  final TextStyle? style;
-  final Widget? child;
-  final Widget? childContent;
-  final double? height;
   final double? width;
-
+  final double? height;
   const AppButton({
     super.key,
-    this.height,
+    this.ontap,
+    required this.textButton,
+    required this.buttonType,
     this.width,
-    this.childContent,
-    this.child,
-    required this.ontap,
-    this.textButton,
-    this.style,
-
-    this.buttonType = ButtonType.normal,
-    this.prefixIconPath,
-    this.suffixIconPath,
+    this.height,
   });
 
   @override
   Widget build(BuildContext context) {
-    final screen = MediaQuery.of(context).size;
-    final screenHeight = screen.height;
-    final screenWidth = screen.width;
+    final size = MediaQuery.of(context).size;
     return InkWell(
       onTap: ontap,
-      child:
-          child ??
-          Container(
-            width: width ?? screenWidth - 32,
-            height: height ?? (48 / 812) * screenHeight,
-            decoration: BoxDecoration(
-              border: buttonType == ButtonType.second
-                  ? Border.all(
-                      color: AppColor.brightBlue,
-                      width: 2,
-                      style: BorderStyle.solid,
-                    )
-                  : null,
-              borderRadius: BorderRadius.circular(12),
-              color: _buildBackgroundColor(),
-            ),
-            alignment: Alignment.center,
-            child:
-                childContent ??
-                Text(
-                  textButton ?? '',
-                  style: style ?? AppTextstyle.tsMediumWhite16,
-                ),
-          ),
+      child: Container(
+        height: height ?? size.height * 0.06,
+        width: width ?? size.width * 0.9,
+        decoration: _buildBoxDecoration(buttonType),
+        child: Align(
+          child: AppText(text: textButton, style: _buildTextStyle(buttonType)),
+        ),
+      ),
     );
   }
+}
 
-  Color _buildBackgroundColor() {
-    switch (buttonType) {
-      case ButtonType.normal:
-        return AppColor.brightBlue;
-      case ButtonType.second:
-        return AppColor.white;
-      case ButtonType.disable:
-        return AppColor.lightgrayishblue;
-    }
+BoxDecoration _buildBoxDecoration(ButtonType buttonType) {
+  switch (buttonType) {
+    case ButtonType.disable:
+      return BoxDecoration(
+        color: Color(0XFFD7D9E4),
+        borderRadius: BorderRadius.circular(12),
+      );
+    case ButtonType.second:
+      return BoxDecoration(
+        color: Colors.white,
+        border: Border.all(color: AppColor.brightBlue, width: 2),
+        borderRadius: BorderRadius.circular(12),
+      );
+    default:
+      return BoxDecoration(
+        color: AppColor.brightBlue,
+        borderRadius: BorderRadius.circular(12),
+      );
+  }
+}
+
+TextStyle _buildTextStyle(ButtonType buttonType) {
+  switch (buttonType) {
+    case ButtonType.disable:
+      return TextStyle(
+        color: Color(0XFF696F8C),
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+        fontFamily: 'Readex Pro',
+      );
+    case ButtonType.second:
+      return TextStyle(
+        color: AppColor.brightBlue,
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+        fontFamily: 'Readex Pro',
+      );
+    default:
+      return TextStyle(
+        color: AppColor.white,
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+        fontFamily: 'Readex Pro',
+      );
   }
 }

@@ -4,6 +4,7 @@ import 'package:cryptoexchange/components/app_color.dart';
 import 'package:cryptoexchange/components/app_path.dart';
 import 'package:cryptoexchange/components/app_text.dart';
 import 'package:cryptoexchange/components/app_textstyle.dart';
+import 'package:cryptoexchange/core/enum/enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -94,14 +95,14 @@ AppCard _avatarNameEmailAndID(String email) {
                   ),
                 ),
                 SizedBox(width: 4),
-                AppButton(
-                  ontap: () {
-                    /// TODO: Implement copy to clipboard functionality
-                    /// copy real email to clipboard
-                    /// show snackbar 'Copied to clipboard' success message
-                  },
-                  child: SvgPicture.asset(AppPath.icCoppy),
-                ),
+                // AppButton(
+                //   ontap: () {
+                //     /// TODO: Implement copy to clipboard functionality
+                //     /// copy real email to clipboard
+                //     /// show snackbar 'Copied to clipboard' success message
+                //   },
+                //   child: SvgPicture.asset(AppPath.icCoppy),
+                // ),
               ],
             ),
           ],
@@ -256,16 +257,8 @@ Column _bodyWidget(String email) {
       SizedBox(height: 8),
       _more(),
       SizedBox(height: 24),
-      _button(),
+      AppButton(textButton: 'Logout', buttonType: ButtonType.second),
       SizedBox(height: 24),
     ],
-  );
-}
-
-AppButton _button() {
-  return AppButton(
-    ontap: () {},
-    textButton: 'Log Out',
-    style: AppTextstyle.tsMediumbrightBlue16,
   );
 }
