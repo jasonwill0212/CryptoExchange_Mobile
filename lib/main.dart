@@ -1,12 +1,35 @@
-import 'package:cryptoexchange/provider/storage_provider.dart';
 import 'package:cryptoexchange/provider/demo_coin_provider.dart';
+import 'package:cryptoexchange/provider/home_provider.dart';
 import 'package:cryptoexchange/provider/onboarding_provider.dart';
 import 'package:cryptoexchange/provider/bottomnavigation_provider.dart';
+import 'package:cryptoexchange/repositories/coin_repository.dart';
 import 'package:cryptoexchange/routes/app_route.dart';
+import 'package:cryptoexchange/services/binance_websocket_service.dart';
+import 'package:cryptoexchange/services/storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+// class TestClass {
+//   final String name;
+
+//   TestClass({required this.name});
+// }
+
+void main() async {
+  // /// instance test
+  // /// instance test1
+  // final test1 = TestClass(name: 'Flutter');
+
+  // /// instance test2
+  // final test2 = TestClass(name: 'Flutter');
+  // print(test2 == test1); // should print false
+  // print('\n');
+  // print(identical(test1, test2)); // should print false
+  WidgetsFlutterBinding.ensureInitialized();
+
+  /// initialize StorageService singleton
+  await StorageService.instance.init();
+
   runApp(const MyApp());
 }
 
@@ -17,21 +40,29 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        /// Init singleton service and repositories
+        Provider(create: (context) => BinanceWebsocketService()),
+        Provider(
+          create: (context) => CoinRepository(
+            binanceWebsocketService: context.read<BinanceWebsocketService>(),
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (context) =>
+              HomeProvider(coinRepository: context.read<CoinRepository>()),
+        ),
         ChangeNotifierProvider(create: (context) => OnboardingProvider()),
         ChangeNotifierProvider(create: (context) => BottomnavigationProvider()),
-        ChangeNotifierProvider(create: (context) => DemoCoinProvider()),
-        ChangeNotifierProvider(create: (context) => StorageProvider()),
+        // ChangeNotifierProvider(create: (context) => DemoCoinProvider()),
       ],
-      child: Consumer<StorageProvider>(
-        builder: (context, storageProvider, _) => MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Flutter Demo',
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          ),
-          initialRoute: AppRoute.onboardingPage,
-          routes: AppRoute().routes,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         ),
+        initialRoute: AppRoute.onboardingPage,
+        routes: AppRoute().routes,
       ),
     );
   }

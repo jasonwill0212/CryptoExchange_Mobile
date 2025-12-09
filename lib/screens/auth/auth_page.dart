@@ -30,7 +30,7 @@ Center _body(context) {
         ),
         AppText(
           text: 'Hello! Start your\ncrypto investment\ntoday',
-          style: AppTextstyle.tssemiBolddarkNavyBlue32,
+          style: AppTextStyle.tssemiBolddarkNavyBlue32,
         ),
         Padding(
           padding: const EdgeInsets.fromLTRB(0, 24, 0, 16),
@@ -52,7 +52,7 @@ Center _body(context) {
           padding: const EdgeInsets.fromLTRB(0, 108, 0, 36),
           child: AppText(
             text: 'Already have an account?',
-            style: AppTextstyle.tsRegulardarkNavyBlue14,
+            style: AppTextStyle.tsRegulardarkNavyBlue14,
           ),
         ),
         AppButton(

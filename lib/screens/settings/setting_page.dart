@@ -1,12 +1,13 @@
 import 'package:cryptoexchange/components/app_button.dart';
-import 'package:cryptoexchange/components/app_card.dart';
 import 'package:cryptoexchange/components/app_color.dart';
 import 'package:cryptoexchange/components/app_path.dart';
+import 'package:cryptoexchange/components/app_tableview.dart';
 import 'package:cryptoexchange/components/app_text.dart';
 import 'package:cryptoexchange/components/app_textstyle.dart';
 import 'package:cryptoexchange/core/enum/enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:cryptoexchange/components/app_button.dart';
 
 class SettingPage extends StatelessWidget {
   const SettingPage({super.key});
@@ -31,7 +32,7 @@ AppBar _appBar(context) {
     centerTitle: true,
     title: AppText(
       text: 'Settings',
-      style: AppTextstyle.tsMediumdarkNavyBlue18,
+      style: AppTextStyle.tsMediumdarkNavyBlue18,
     ),
     leading: InkWell(
       onTap: () {
@@ -47,7 +48,7 @@ AppBar _appBar(context) {
 Padding _appText(String text) {
   return Padding(
     padding: EdgeInsets.only(left: 17),
-    child: AppText(text: text, style: AppTextstyle.tsRegulargrayishNavy14),
+    child: AppText(text: text, style: AppTextStyle.tsRegulargrayishNavy14),
   );
 }
 
@@ -69,7 +70,7 @@ AppCard _avatarNameEmailAndID(String email) {
                   children: [
                     AppText(
                       text: 'Dmutro',
-                      style: AppTextstyle.tsRegulardarkNavyBlue14,
+                      style: AppTextStyle.tsRegulardarkNavyBlue14,
                       textAlign: TextAlign.left,
                     ),
                     AppText(
@@ -77,7 +78,7 @@ AppCard _avatarNameEmailAndID(String email) {
 
                       /// TODO: Implement email masking
                       // text: 'to***@***.com',
-                      style: AppTextstyle.tsRegulardarkNavyBlue14,
+                      style: AppTextStyle.tsRegulardarkNavyBlue14,
                     ),
                   ],
                 ),
@@ -90,7 +91,7 @@ AppCard _avatarNameEmailAndID(String email) {
               children: [
                 AppText(
                   text: 'ID 28954761',
-                  style: AppTextstyle.tsRegulardarkNavyBlue14.copyWith(
+                  style: AppTextStyle.tsRegulardarkNavyBlue14.copyWith(
                     height: 1.0,
                   ),
                 ),
@@ -119,7 +120,7 @@ AppCard _avatarNameEmailAndID(String email) {
               SizedBox(width: 4),
               AppText(
                 text: 'Verified',
-                style: AppTextstyle.tsRegulardarkNavyBlue14,
+                style: AppTextStyle.tsRegulardarkNavyBlue14,
               ),
             ],
           ),
@@ -214,7 +215,7 @@ InkWell _iconLabelAndAction(
         SizedBox(width: 14),
         SvgPicture.asset(path),
         SizedBox(width: 4),
-        AppText(text: label, style: AppTextstyle.tsRegulardarkNavyBlue16),
+        AppText(text: label, style: AppTextStyle.tsRegulardarkNavyBlue16),
         Spacer(),
         Padding(
           padding: EdgeInsets.only(right: 14),

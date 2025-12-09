@@ -1,7 +1,6 @@
-import 'package:cryptoexchange/provider/storage_provider.dart';
 import 'package:cryptoexchange/routes/app_route.dart';
+import 'package:cryptoexchange/services/storage_service.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class OnboardingProvider extends ChangeNotifier {
   int currentPage = 0;
@@ -26,8 +25,7 @@ class OnboardingProvider extends ChangeNotifier {
       );
     } else {
       notifyListeners();
-      final storageProvider = context.read<StorageProvider>();
-      await storageProvider.completed();
+      await StorageService.instance.setOnboardingCompleted();
       if (context.mounted) {
         Navigator.pushReplacementNamed(context, AppRoute.authPage);
       }

@@ -52,7 +52,7 @@ Row _buildChild(SocialType type) {
           SizedBox(width: 8),
           AppText(
             text: 'Continue with Google',
-            style: AppTextstyle.tsRegulargrayishNavy14,
+            style: AppTextStyle.tsRegulargrayishNavy14,
           ),
         ],
       );
@@ -64,7 +64,7 @@ Row _buildChild(SocialType type) {
           SizedBox(width: 8),
           AppText(
             text: 'Continue with Facebook',
-            style: AppTextstyle.tsRegulargrayishNavy14,
+            style: AppTextStyle.tsRegulargrayishNavy14,
           ),
         ],
       );
@@ -76,7 +76,7 @@ Row _buildChild(SocialType type) {
           SizedBox(width: 8),
           AppText(
             text: 'Continue with Apple',
-            style: AppTextstyle.tsRegulargrayishNavy14,
+            style: AppTextStyle.tsRegulargrayishNavy14,
           ),
         ],
       );

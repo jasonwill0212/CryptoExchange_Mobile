@@ -6,6 +6,9 @@ import 'package:flutter/foundation.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 class BinanceWebsocketService {
+  /// Delcare constructor
+  BinanceWebsocketService();
+
   /// Declare websocket url
   static const String _baseUrl =
       'wss://stream.binance.com:9443/stream?streams=';
@@ -14,13 +17,14 @@ class BinanceWebsocketService {
   WebSocketChannel? _tickerWebSocketChannel;
 
   /// Declare stream variable
-  final StreamController<Coin> _tickerStreamController =
-      StreamController<Coin>.broadcast();
+  final StreamController<List<Coin>> _tickerStreamController =
+      StreamController<List<Coin>>.broadcast();
 
   /// Expose ticker stream -> for listening
-  Stream<Coin> get tickerStream => _tickerStreamController.stream;
+  Stream<List<Coin>> get tickerStream => _tickerStreamController.stream;
 
-  final listcoins = ['btcusdt', 'ethusdt', 'bnbusdt', 'adausdt', 'xrpusdt'];
+  /// Map of coin data
+  final Map<String, Coin> _coinDataMap = {};
 
   /// Connect to ticker stream
   Future<void> connectToTickerStream(List<String> listcoin) async {
@@ -42,7 +46,9 @@ class BinanceWebsocketService {
             // Handle the stream format: {"stream":"...", "data":{...}}
             if (jsonData.containsKey('data')) {
               final coin = Coin.fromJson(jsonData['data']);
-              _tickerStreamController.add(coin);
+              _coinDataMap[coin.symbol] = coin;
+
+              _tickerStreamController.add(_coinDataMap.values.toList());
             } else {
               debugPrint('Unexpected data format: $jsonData');
             }

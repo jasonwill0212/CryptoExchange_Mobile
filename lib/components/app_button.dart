@@ -1,5 +1,6 @@
 import 'package:cryptoexchange/components/app_color.dart';
 import 'package:cryptoexchange/components/app_text.dart';
+import 'package:cryptoexchange/components/app_textstyle.dart';
 import 'package:cryptoexchange/core/enum/enum.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +10,7 @@ class AppButton extends StatelessWidget {
   final ButtonType buttonType;
   final double? width;
   final double? height;
+
   const AppButton({
     super.key,
     this.ontap,
@@ -33,51 +35,56 @@ class AppButton extends StatelessWidget {
       ),
     );
   }
-}
 
-BoxDecoration _buildBoxDecoration(ButtonType buttonType) {
-  switch (buttonType) {
-    case ButtonType.disable:
-      return BoxDecoration(
-        color: Color(0XFFD7D9E4),
-        borderRadius: BorderRadius.circular(12),
-      );
-    case ButtonType.second:
-      return BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: AppColor.brightBlue, width: 2),
-        borderRadius: BorderRadius.circular(12),
-      );
-    default:
-      return BoxDecoration(
-        color: AppColor.brightBlue,
-        borderRadius: BorderRadius.circular(12),
-      );
+  /// TODO: Implement prefix icon and suffix icon
+
+  /// TODO: Refactor this method to use AppColor
+  BoxDecoration _buildBoxDecoration(ButtonType buttonType) {
+    switch (buttonType) {
+      case ButtonType.disable:
+        return BoxDecoration(
+          color: Color(0XFFD7D9E4),
+          borderRadius: BorderRadius.circular(12),
+        );
+      case ButtonType.second:
+        return BoxDecoration(
+          color: Colors.white,
+          border: Border.all(color: AppColor.brightBlue, width: 2),
+          borderRadius: BorderRadius.circular(12),
+        );
+      default:
+        return BoxDecoration(
+          color: AppColor.brightBlue,
+          borderRadius: BorderRadius.circular(12),
+        );
+    }
   }
-}
 
-TextStyle _buildTextStyle(ButtonType buttonType) {
-  switch (buttonType) {
-    case ButtonType.disable:
-      return TextStyle(
-        color: Color(0XFF696F8C),
-        fontSize: 16,
-        fontWeight: FontWeight.w500,
-        fontFamily: 'Readex Pro',
-      );
-    case ButtonType.second:
-      return TextStyle(
-        color: AppColor.brightBlue,
-        fontSize: 16,
-        fontWeight: FontWeight.w500,
-        fontFamily: 'Readex Pro',
-      );
-    default:
-      return TextStyle(
-        color: AppColor.white,
-        fontSize: 16,
-        fontWeight: FontWeight.w500,
-        fontFamily: 'Readex Pro',
-      );
+  /// TODO: Refactor this method to use AppTextStyle
+  TextStyle _buildTextStyle(ButtonType buttonType) {
+    switch (buttonType) {
+      case ButtonType.disable:
+        return TextStyle(
+          color: Color(0XFF696F8C),
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+          fontFamily: 'Readex Pro',
+        );
+      case ButtonType.second:
+        return AppTextStyle.tsMediumbrightBlue16;
+      // return TextStyle(
+      //   color: AppColor.brightBlue,
+      //   fontSize: 16,
+      //   fontWeight: FontWeight.w500,
+      //   fontFamily: 'Readex Pro',
+      // );
+      default:
+        return TextStyle(
+          color: AppColor.white,
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+          fontFamily: 'Readex Pro',
+        );
+    }
   }
 }

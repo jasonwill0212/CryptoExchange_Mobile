@@ -11,7 +11,7 @@ class AppText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: style ?? AppTextstyle.tsMediumWhite16,
+      style: style ?? AppTextStyle.tsMediumWhite16,
       textAlign: textAlign ?? TextAlign.center,
     );
   }
