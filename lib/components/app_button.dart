@@ -36,9 +36,6 @@ class AppButton extends StatelessWidget {
     );
   }
 
-  /// TODO: Implement prefix icon and suffix icon
-
-  /// TODO: Refactor this method to use AppColor
   BoxDecoration _buildBoxDecoration(ButtonType buttonType) {
     switch (buttonType) {
       case ButtonType.disable:
@@ -60,31 +57,14 @@ class AppButton extends StatelessWidget {
     }
   }
 
-  /// TODO: Refactor this method to use AppTextStyle
   TextStyle _buildTextStyle(ButtonType buttonType) {
     switch (buttonType) {
       case ButtonType.disable:
-        return TextStyle(
-          color: Color(0XFF696F8C),
-          fontSize: 16,
-          fontWeight: FontWeight.w500,
-          fontFamily: 'Readex Pro',
-        );
+        return AppTextStyle.tsMediumWhite16;
       case ButtonType.second:
         return AppTextStyle.tsMediumbrightBlue16;
-      // return TextStyle(
-      //   color: AppColor.brightBlue,
-      //   fontSize: 16,
-      //   fontWeight: FontWeight.w500,
-      //   fontFamily: 'Readex Pro',
-      // );
       default:
-        return TextStyle(
-          color: AppColor.white,
-          fontSize: 16,
-          fontWeight: FontWeight.w500,
-          fontFamily: 'Readex Pro',
-        );
+        return AppTextStyle.tsMediumWhite16;
     }
   }
 }

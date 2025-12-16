@@ -1,4 +1,5 @@
 import 'package:cryptoexchange/components/app_color.dart';
+import 'package:cryptoexchange/components/app_path.dart';
 import 'package:cryptoexchange/provider/bottomnavigation_provider.dart';
 import 'package:cryptoexchange/screens/favorite/favorites_screen.dart';
 import 'package:cryptoexchange/screens/home/home_screen.dart';
@@ -6,6 +7,7 @@ import 'package:cryptoexchange/screens/market/market_screen.dart';
 import 'package:cryptoexchange/screens/trade/trade_screen.dart';
 import 'package:cryptoexchange/screens/wallet/wallet_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 class Bottomnavigationbar extends StatelessWidget {
@@ -42,12 +44,67 @@ BottomNavigationBar _bottomNavigationBar(
     selectedItemColor: AppColor.brightBlue,
     unselectedItemColor: Color(0XFF696F8C),
     type: BottomNavigationBarType.fixed,
-    items: const [
-      BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-      BottomNavigationBarItem(icon: Icon(Icons.swap_horiz), label: 'Trade'),
-      BottomNavigationBarItem(icon: Icon(Icons.show_chart), label: 'Market'),
-      BottomNavigationBarItem(icon: Icon(Icons.star), label: 'Favorites'),
-      BottomNavigationBarItem(icon: Icon(Icons.wallet), label: 'Wallet'),
+    items: [
+      BottomNavigationBarItem(
+        icon: SvgPicture.asset(
+          AppPath.icHome,
+          colorFilter: ColorFilter.mode(
+            bottomProvider.seletedIndex == 0
+                ? AppColor.brightBlue
+                : Color(0XFF696F8C),
+            BlendMode.srcIn,
+          ),
+        ),
+        label: 'Home',
+      ),
+      BottomNavigationBarItem(
+        icon: SvgPicture.asset(
+          AppPath.icTrade,
+          colorFilter: ColorFilter.mode(
+            bottomProvider.seletedIndex == 1
+                ? AppColor.brightBlue
+                : Color(0XFF696F8C),
+            BlendMode.srcIn,
+          ),
+        ),
+        label: 'Trade',
+      ),
+      BottomNavigationBarItem(
+        icon: SvgPicture.asset(
+          AppPath.icMarket,
+          colorFilter: ColorFilter.mode(
+            bottomProvider.seletedIndex == 2
+                ? AppColor.brightBlue
+                : Color(0XFF696F8C),
+            BlendMode.srcIn,
+          ),
+        ),
+        label: 'Market',
+      ),
+      BottomNavigationBarItem(
+        icon: SvgPicture.asset(
+          AppPath.icStar,
+          colorFilter: ColorFilter.mode(
+            bottomProvider.seletedIndex == 3
+                ? AppColor.brightBlue
+                : Color(0XFF696F8C),
+            BlendMode.srcIn,
+          ),
+        ),
+        label: 'Favorites',
+      ),
+      BottomNavigationBarItem(
+        icon: SvgPicture.asset(
+          AppPath.icWallet,
+          colorFilter: ColorFilter.mode(
+            bottomProvider.seletedIndex == 4
+                ? AppColor.brightBlue
+                : Color(0XFF696F8C),
+            BlendMode.srcIn,
+          ),
+        ),
+        label: 'Wallet',
+      ),
     ],
   );
 }

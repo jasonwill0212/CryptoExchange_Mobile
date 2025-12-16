@@ -1,8 +1,12 @@
-import 'package:cryptoexchange/provider/demo_coin_provider.dart';
 import 'package:cryptoexchange/provider/home_provider.dart';
 import 'package:cryptoexchange/provider/onboarding_provider.dart';
+import 'package:cryptoexchange/provider/market_provider.dart';
 import 'package:cryptoexchange/provider/bottomnavigation_provider.dart';
+import 'package:cryptoexchange/provider/order_book_provider.dart';
+import 'package:cryptoexchange/provider/theme_provider.dart';
+import 'package:cryptoexchange/provider/wallet_provider.dart';
 import 'package:cryptoexchange/repositories/coin_repository.dart';
+import 'package:cryptoexchange/repositories/orderbook_repository.dart';
 import 'package:cryptoexchange/routes/app_route.dart';
 import 'package:cryptoexchange/services/binance_websocket_service.dart';
 import 'package:cryptoexchange/services/storage_service.dart';
@@ -51,8 +55,22 @@ class MyApp extends StatelessWidget {
           create: (context) =>
               HomeProvider(coinRepository: context.read<CoinRepository>()),
         ),
+
+        Provider(
+          create: (context) => OrderbookRepository(
+            binanceWebsocketService: context.read<BinanceWebsocketService>(),
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => OrderBookProvider(
+            orderbookRepository: context.read<OrderbookRepository>(),
+          ),
+        ),
         ChangeNotifierProvider(create: (context) => OnboardingProvider()),
         ChangeNotifierProvider(create: (context) => BottomnavigationProvider()),
+        ChangeNotifierProvider(create: (context) => MarketProvider()),
+        ChangeNotifierProvider(create: (context) => WalletProvider()),
+        ChangeNotifierProvider(create: (context) => ThemeProvider()),
         // ChangeNotifierProvider(create: (context) => DemoCoinProvider()),
       ],
       child: MaterialApp(
