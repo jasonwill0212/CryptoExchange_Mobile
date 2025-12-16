@@ -81,14 +81,12 @@ class BinanceWebsocketService {
   }
 
   //order book stream
-  Future<void> connectToOrderBookStream(List<String> listcoin) async {
+  Future<void> connectToOrderBookStream(symbol) async {
     try {
-      final stream = listcoin
-          .map((coin) => '${coin.toLowerCase()}@depth')
-          .join('/');
+      final websocketUrl = "wss://stream.binance.com:9443/ws/$symbol@depth";
 
       _orderBookWebSocketChannel = WebSocketChannel.connect(
-        Uri.parse('$_baseUrl$stream'),
+        Uri.parse(websocketUrl),
       );
       _orderBookWebSocketChannel?.stream.listen(
         (data) {

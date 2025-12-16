@@ -1,3 +1,5 @@
+import 'package:cryptoexchange/core/theme/app_theme.dart';
+import 'package:cryptoexchange/core/utils/size_config.dart';
 import 'package:cryptoexchange/provider/home_provider.dart';
 import 'package:cryptoexchange/provider/onboarding_provider.dart';
 import 'package:cryptoexchange/provider/market_provider.dart';
@@ -73,15 +75,24 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => ThemeProvider()),
         // ChangeNotifierProvider(create: (context) => DemoCoinProvider()),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        ),
-        initialRoute: AppRoute.onboardingPage,
-        routes: AppRoute().routes,
-      ),
+      child: MyAppBody(),
+    );
+  }
+}
+
+class MyAppBody extends StatelessWidget {
+  const MyAppBody({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+
+      initialRoute: AppRoute.onboardingPage,
+      routes: AppRoute().routes,
+      themeMode: ThemeMode.system,
+      theme: context.watch<ThemeProvider>().themeData,
     );
   }
 }

@@ -4,6 +4,7 @@ import 'package:cryptoexchange/components/app_path.dart';
 import 'package:cryptoexchange/components/app_text.dart';
 import 'package:cryptoexchange/components/app_textstyle.dart';
 import 'package:cryptoexchange/core/enum/enum.dart';
+import 'package:cryptoexchange/core/extension/context_extension.dart';
 import 'package:cryptoexchange/provider/onboarding_provider.dart';
 import 'package:cryptoexchange/routes/app_route.dart';
 import 'package:cryptoexchange/services/storage_service.dart';
@@ -102,7 +103,7 @@ Column _onboardingItem(
       Image.asset(AppPath.imgCoinMoney),
       SizedBox(height: 50),
       SizedBox(
-        height: (372 / 812) * MediaQuery.of(context).size.height,
+        height: (372 / 812) * context.screenHeight,
         child: Image.asset(imagePath),
       ),
       SizedBox(

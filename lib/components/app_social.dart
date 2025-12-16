@@ -3,6 +3,7 @@ import 'package:cryptoexchange/components/app_path.dart';
 import 'package:cryptoexchange/components/app_text.dart';
 import 'package:cryptoexchange/components/app_textstyle.dart';
 import 'package:cryptoexchange/core/enum/enum.dart';
+import 'package:cryptoexchange/core/extension/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -21,12 +22,11 @@ class AppSocial extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return InkWell(
       onTap: onTap,
       child: Container(
-        height: height ?? size.height * 0.06,
-        width: width ?? size.width * 0.9,
+        height: height ?? context.screenHeight * 0.06,
+        width: width ?? context.screenWidth * 0.9,
         decoration: _boxDecoration(),
         child: _buildChild(type),
       ),

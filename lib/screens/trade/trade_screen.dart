@@ -11,6 +11,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
+/// State Mangemenent
+/// Global State -> use in multiple places
+/// Local State -> use in one place only
 class TradeScreen extends StatefulWidget {
   const TradeScreen({super.key});
 
@@ -41,7 +44,7 @@ class _TradeScreenState extends State<TradeScreen> {
       actions: [
         Padding(
           padding: const EdgeInsets.only(right: 15),
-          child: SvgPicture.asset(AppPath.icOrder),
+          child: Icon(Icons.favorite_border, color: AppColor.darkNavyBlue),
         ),
       ],
     );
@@ -54,6 +57,7 @@ class _TradeScreenState extends State<TradeScreen> {
         children: [
           SizedBox(height: 18),
           // Custom trade tab
+          /// TODO: Implement Tabbar Flutter Widget
           AppSegmented(
             tabs: const ['Spot', 'Margin', 'Grid', 'Fiat'],
             selectedIndex: selectedIndex,
@@ -66,6 +70,11 @@ class _TradeScreenState extends State<TradeScreen> {
           SizedBox(height: 16),
 
           SizedBox(height: 16),
+
+          /// TODO: Implement bottomsheet for coin selection that displasys list of coins
+          /// this coins data comes from HomeProvider and they're real-time updated via websocket
+          /// default coin is BTCUSDT
+          /// has check icon to indicate selected coin
           Consumer<HomeProvider>(
             builder: (_, homeProvider, __) {
               return Column(

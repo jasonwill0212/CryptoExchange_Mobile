@@ -5,12 +5,9 @@ import 'package:cryptoexchange/components/app_text.dart';
 import 'package:cryptoexchange/components/app_textstyle.dart';
 import 'package:cryptoexchange/core/enum/enum.dart';
 import 'package:cryptoexchange/core/utils/size_config.dart';
-import 'package:cryptoexchange/provider/home_provider.dart';
-import 'package:cryptoexchange/provider/theme_provider.dart';
 import 'package:cryptoexchange/screens/settings/widget/widget_tableview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:provider/provider.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({super.key});
@@ -20,14 +17,13 @@ class SettingPage extends StatefulWidget {
 }
 
 class _SettingPageState extends State<SettingPage> {
+  final String email = 'thuongdo@gmail.com';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Provider.of<ThemeProvider>(context).isDark
-          ? AppColor.darkNavyBlue
-          : AppColor.almostWhite,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: _appBar(),
-      body: _body(context),
+      body: SafeArea(child: _body(context)),
     );
   }
 }
@@ -53,64 +49,83 @@ AppBar _appBar() {
 //body
 Widget _body(BuildContext context) {
   return SingleChildScrollView(
-    child: SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 0, 15, 0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 16),
-            //infomation avatar and name
-            _infoAvatarName(context),
-            texttableview('Privacy'),
-            //tableview privacy
-            WidgetTableview(appPath: AppPath.icProfile, text: 'Profile'),
-            WidgetTableview(appPath: AppPath.icSecurity, text: 'Security'),
-            texttableview('Finance'),
-            //tableview finance
-            WidgetTableview(appPath: AppPath.icFile, text: 'History'),
-            WidgetTableview(appPath: AppPath.icLimit, text: 'Limit'),
-            texttableview('Account'),
-            //tableview account
-            Consumer<ThemeProvider>(
-              builder: (context, themeProvider, child) => WidgetTableview(
-                appPath: AppPath.icTheme,
-                text: 'Theme',
-                tableViewType: TableViewType.withSwitch,
-              ),
+    padding: const EdgeInsets.fromLTRB(16, 0, 15, 0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(height: 16),
+        //infomation avatar and name
+        _infoAvatarName(context),
+        texttableview('Privacy'),
+        //tableview privacy
+        SettingCardWidget(
+          items: [
+            SettingCardItem(
+              prefixIconPath: AppPath.icProfile,
+              title: 'Profile',
             ),
-            WidgetTableview(appPath: AppPath.icBell, text: 'Notifications'),
-            texttableview('More'),
-            //tableview more
-            WidgetTableview(appPath: AppPath.icGift, text: 'My Bonus'),
-            WidgetTableview(
-              appPath: AppPath.icUserPlus,
-              text: 'Share with friends',
+            SettingCardItem(
+              prefixIconPath: AppPath.icSecurity,
+              title: 'Security',
             ),
-            WidgetTableview(appPath: AppPath.icQuestion, text: 'Help'),
-            SizedBox(height: 24),
-            //button logout
-            AppButton(textButton: 'Log out', buttonType: ButtonType.second),
           ],
         ),
-      ),
+        texttableview('Finance'),
+        SettingCardWidget(
+          items: [
+            SettingCardItem(prefixIconPath: AppPath.icFile, title: 'History'),
+            SettingCardItem(prefixIconPath: AppPath.icLimit, title: 'Limit'),
+          ],
+        ),
+        texttableview('Account'),
+        //tableview account
+        SettingCardWidget(
+          items: [
+            SettingCardItem(
+              prefixIconPath: AppPath.icFile,
+              title: 'Notifications',
+            ),
+            SettingCardItem(
+              prefixIconPath: AppPath.icLimit,
+              title: 'Theme',
+              hasSwitch: true,
+            ),
+          ],
+        ),
+        texttableview('More'),
+        //tableview more
+        SettingCardWidget(
+          items: [
+            SettingCardItem(prefixIconPath: AppPath.icGift, title: 'My Bonus'),
+            SettingCardItem(
+              prefixIconPath: AppPath.icUserPlus,
+              title: 'Share with friends',
+            ),
+            SettingCardItem(prefixIconPath: AppPath.icQuestion, title: 'Help'),
+          ],
+        ),
+        SizedBox(height: 24),
+        //button logout
+        AppButton(textButton: 'Log out', buttonType: ButtonType.second),
+      ],
     ),
   );
 }
 
 //text tableview
-Widget texttableview(String text) {
+Padding texttableview(String text) {
   return Padding(
-    padding: EdgeInsets.fromLTRB(0, 14, 0, 8),
+    padding: EdgeInsets.fromLTRB(20, 14, 0, 8),
     child: AppText(text: text, style: AppTextStyle.tsRegulargrayishNavy14),
   );
 }
 
 //infomation avatar and name
-Widget _infoAvatarName(BuildContext context) {
+Container _infoAvatarName(BuildContext context) {
   return Container(
     height: context.w(80),
     width: context.w(344),
+    padding: const EdgeInsets.fromLTRB(14, 0, 14, 0),
     decoration: BoxDecoration(
       color: AppColor.white,
       borderRadius: BorderRadius.circular(14),
@@ -122,86 +137,75 @@ Widget _infoAvatarName(BuildContext context) {
         ),
       ],
     ),
-    child: Padding(
-      padding: const EdgeInsets.fromLTRB(14, 0, 14, 0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  CircleAvatar(foregroundImage: AssetImage(AppPath.imgAvatar)),
-                  SizedBox(width: 12),
-                  //name and gmail
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      AppText(
-                        text: 'Dmutro',
-                        style: AppTextStyle.tsRegulardarkNavyBlue14,
-                      ),
-                      AppText(
-                        text: 'to**@***.com',
-
-                        /// TODO: Implement email masking
-                        // text: 'to***@***.com',
-                        style: AppTextStyle.tsRegulardarkNavyBlue14,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              SizedBox(height: 8),
-              //ID
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  AppText(
-                    text: 'ID 28954761',
-                    style: AppTextStyle.tsRegulardarkNavyBlue14.copyWith(
-                      height: 1.0,
-                    ),
-                  ),
-                  SizedBox(width: 4),
-                  InkWell(
-                    onTap: () {
-                      /// TODO: Implement copy to clipboard functionality
-                      /// copy real email to clipboard
-                      /// show snackbar 'Copied to clipboard' success message
-                    },
-                    child: SvgPicture.asset(AppPath.icCoppy),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          Spacer(),
-          // verify card
-          Container(
-            width: context.w(94),
-            height: context.w(36),
-            decoration: BoxDecoration(
-              color: AppColor.lightPastelGreen,
-              borderRadius: BorderRadius.circular(14),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
               children: [
-                SvgPicture.asset(AppPath.icVerified),
-                SizedBox(width: 4),
+                CircleAvatar(foregroundImage: AssetImage(AppPath.imgAvatar)),
+                SizedBox(width: 12),
+                //name and gmail
+                /// TODO: Implement masked email display
+                /// Implement global function to mask email
+                /// Example: thuongdo@gmail.com -> th**@***.com
                 AppText(
-                  text: 'Verified',
+                  text: 'Dmutro\nto**@***.com',
                   style: AppTextStyle.tsRegulardarkNavyBlue14,
+                  textAlign: TextAlign.start,
                 ),
               ],
             ),
+            SizedBox(height: 8),
+            //ID
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                AppText(
+                  text: 'ID 28954761',
+                  style: AppTextStyle.tsRegulardarkNavyBlue14.copyWith(
+                    height: 1.0,
+                  ),
+                ),
+                SizedBox(width: 4),
+                InkWell(
+                  onTap: () {
+                    /// TODO: Implement copy to clipboard functionality
+                    /// copy real email to clipboard
+                    /// show snackbar 'Copied to clipboard' success message
+                  },
+                  child: SvgPicture.asset(AppPath.icCoppy),
+                ),
+              ],
+            ),
+          ],
+        ),
+        Spacer(),
+        // verify card
+        Container(
+          width: context.w(94),
+          height: context.w(36),
+          decoration: BoxDecoration(
+            color: AppColor.lightPastelGreen,
+            borderRadius: BorderRadius.circular(14),
           ),
-        ],
-      ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SvgPicture.asset(AppPath.icVerified),
+              SizedBox(width: 4),
+              AppText(
+                text: 'Verified',
+                style: AppTextStyle.tsRegulardarkNavyBlue14,
+              ),
+            ],
+          ),
+        ),
+      ],
     ),
   );
 }

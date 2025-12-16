@@ -16,6 +16,9 @@ class StorageService {
 
   /// Define key strings
   static const String onboardingCompletedKey = 'onboardingCompleted';
+  static const String isDarkModeKey = 'isDarkMode';
+
+  /// Stream , Stream Controller -> for listening list favorite coins
 
   /// Functions
   Future<void> init() async {
@@ -33,6 +36,16 @@ class StorageService {
   }
 
   /// set theme mode
+  Future<void> setThemeMode([bool isDark = false]) async {
+    await _prefs.setBool(isDarkModeKey, isDark);
+  }
 
   /// get theme mode
+  bool getThemeMode() {
+    return _prefs.getBool(isDarkModeKey) ?? false;
+  }
+
+  /// get list favorite coins
+
+  /// set list favorite coins
 }

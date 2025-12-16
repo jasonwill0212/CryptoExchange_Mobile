@@ -2,8 +2,10 @@ import 'package:cryptoexchange/components/app_color.dart';
 import 'package:cryptoexchange/components/app_text.dart';
 import 'package:cryptoexchange/components/app_textstyle.dart';
 import 'package:cryptoexchange/core/enum/enum.dart';
+import 'package:cryptoexchange/core/extension/context_extension.dart';
 import 'package:flutter/material.dart';
 
+/// TODO: Implement prefixIconPath and suffixIconPath
 class AppButton extends StatelessWidget {
   final GestureTapCallback? ontap;
   final String textButton;
@@ -22,12 +24,11 @@ class AppButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return InkWell(
       onTap: ontap,
       child: Container(
-        height: height ?? size.height * 0.06,
-        width: width ?? size.width * 0.9,
+        height: height ?? context.screenHeight * 0.06,
+        width: width ?? context.screenWidth * 0.9,
         decoration: _buildBoxDecoration(buttonType),
         child: Align(
           child: AppText(text: textButton, style: _buildTextStyle(buttonType)),
