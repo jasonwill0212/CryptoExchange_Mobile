@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StorageService {
@@ -17,8 +19,14 @@ class StorageService {
   /// Define key strings
   static const String onboardingCompletedKey = 'onboardingCompleted';
   static const String isDarkModeKey = 'isDarkMode';
+  static const String favoriteCoinsKey = 'favoriteCoins';
 
   /// Stream , Stream Controller -> for listening list favorite coins
+  StreamController<List<String>> favoriteCoinsStreamController =
+      StreamController<List<String>>.broadcast();
+
+  Stream<List<String>> get favoriteCoinsStream =>
+      favoriteCoinsStreamController.stream;
 
   /// Functions
   Future<void> init() async {
@@ -46,6 +54,37 @@ class StorageService {
   }
 
   /// get list favorite coins
+  List<String> getFavoriteCoins() {
+    /// toLowercase all symbols
+    /// Example: ['BTCUSDT', 'ETHUSDT'] -> ['btcusdt', 'ethusdt']
+    /// Get stored list
+    final List<String> storedCoins =
+        _prefs.getStringList(favoriteCoinsKey) ?? [];
 
-  /// set list favorite coins
+    /// toLowercase all symbols
+    // return storedCoins.map((coin) => coin.toLowerCase()).toList();
+    for (int i = 0; i < storedCoins.length; i++) {
+      storedCoins[i] = storedCoins[i].toLowerCase();
+    }
+    return storedCoins;
+  }
+
+  /// toggle single favorite coin
+  Future<void> toggleFavoriteCoin(String symbol) async {
+    /// Get current list
+    final List<String> favoriteCoins = getFavoriteCoins();
+
+    if (favoriteCoins.contains(symbol.toLowerCase())) {
+      /// Example: 'btcusdt' exists -> remove it
+      favoriteCoins.remove(symbol.toLowerCase());
+    } else {
+      favoriteCoins.add(symbol.toLowerCase());
+    }
+
+    /// Save updated list
+    await _prefs.setStringList(favoriteCoinsKey, favoriteCoins);
+
+    /// Update stream to notify listeners
+    favoriteCoinsStreamController.add(favoriteCoins);
+  }
 }

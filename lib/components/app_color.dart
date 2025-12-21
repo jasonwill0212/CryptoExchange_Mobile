@@ -11,5 +11,5 @@ class AppColor {
   static const Color lightPastelGreen = Color(0XFFCDFFC5);
   static const Color red = Color(0XFFCD0000);
   static const Color green = Color(0XFF098C26);
-  static final Color gray60 = Color(0XFF3C3C43).withOpacity(0.6);
+  static final Color gray60 = Color(0XFF3C3C43).withValues(alpha: 0.6);
 }

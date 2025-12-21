@@ -35,6 +35,9 @@ class BinanceWebsocketService {
   /// Map of coin data
   final Map<String, Coin> _coinDataMap = {};
 
+  /// get list coin from map
+  List<Coin> get listOfCoins => _coinDataMap.values.toList();
+
   /// Connect to ticker stream
   Future<void> connectToTickerStream(List<String> listcoin) async {
     try {
@@ -81,6 +84,9 @@ class BinanceWebsocketService {
   //order book stream
   Future<void> connectToOrderBookStream(symbol) async {
     try {
+      /// Disconnect previous connection if exists
+      await _orderBookWebSocketChannel?.sink.close();
+
       final websocketUrl = "wss://stream.binance.com:9443/ws/$symbol@depth";
 
       _orderBookWebSocketChannel = WebSocketChannel.connect(

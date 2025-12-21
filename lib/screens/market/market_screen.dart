@@ -2,7 +2,6 @@ import 'package:cryptoexchange/components/app_color.dart';
 import 'package:cryptoexchange/components/app_path.dart';
 import 'package:cryptoexchange/components/app_text.dart';
 import 'package:cryptoexchange/components/app_textstyle.dart';
-import 'package:cryptoexchange/core/extension/context_extension.dart';
 import 'package:cryptoexchange/core/utils/size_config.dart';
 import 'package:cryptoexchange/models/coin.dart';
 import 'package:cryptoexchange/provider/home_provider.dart';

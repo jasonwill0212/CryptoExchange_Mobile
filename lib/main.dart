@@ -1,3 +1,4 @@
+import 'package:cryptoexchange/provider/favorite_provider.dart';
 import 'package:cryptoexchange/provider/home_provider.dart';
 import 'package:cryptoexchange/provider/onboarding_provider.dart';
 import 'package:cryptoexchange/provider/market_provider.dart';
@@ -6,6 +7,7 @@ import 'package:cryptoexchange/provider/order_book_provider.dart';
 import 'package:cryptoexchange/provider/theme_provider.dart';
 import 'package:cryptoexchange/provider/wallet_provider.dart';
 import 'package:cryptoexchange/repositories/coin_repository.dart';
+import 'package:cryptoexchange/repositories/favorite_repository.dart';
 import 'package:cryptoexchange/repositories/orderbook_repository.dart';
 import 'package:cryptoexchange/routes/app_route.dart';
 import 'package:cryptoexchange/services/binance_websocket_service.dart';
@@ -55,15 +57,19 @@ class MyApp extends StatelessWidget {
           create: (context) =>
               HomeProvider(coinRepository: context.read<CoinRepository>()),
         ),
-
         Provider(
           create: (context) => OrderbookRepository(
             binanceWebsocketService: context.read<BinanceWebsocketService>(),
           ),
         ),
+        Provider(
+          create: (context) =>
+              FavoriteRepository(storageService: StorageService.instance),
+        ),
         ChangeNotifierProvider(
           create: (context) => OrderBookProvider(
             orderbookRepository: context.read<OrderbookRepository>(),
+            favoriteRepository: context.read<FavoriteRepository>(),
           ),
         ),
         ChangeNotifierProvider(create: (context) => OnboardingProvider()),
@@ -71,6 +77,12 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => MarketProvider()),
         ChangeNotifierProvider(create: (context) => WalletProvider()),
         ChangeNotifierProvider(create: (context) => ThemeProvider()),
+        ChangeNotifierProvider(
+          create: (context) => FavoriteProvider(
+            favoriteRepository: context.read<FavoriteRepository>(),
+            coinRepository: context.read<CoinRepository>(),
+          ),
+        ),
         // ChangeNotifierProvider(create: (context) => DemoCoinProvider()),
       ],
       child: MyAppBody(),

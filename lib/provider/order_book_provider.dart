@@ -1,11 +1,16 @@
 import 'package:cryptoexchange/models/orderbook.dart';
+import 'package:cryptoexchange/repositories/favorite_repository.dart';
 import 'package:cryptoexchange/repositories/orderbook_repository.dart';
 import 'package:flutter/material.dart';
 
 class OrderBookProvider extends ChangeNotifier {
   final OrderbookRepository orderbookRepository;
+  final FavoriteRepository favoriteRepository;
 
-  OrderBookProvider({required this.orderbookRepository});
+  OrderBookProvider({
+    required this.orderbookRepository,
+    required this.favoriteRepository,
+  });
 
   /// define state
   bool _isLoading = false;
@@ -17,9 +22,17 @@ class OrderBookProvider extends ChangeNotifier {
   Orderbook _orderbooks = Orderbook(asks: [], bids: [], symbol: '');
   Orderbook get orderbooks => _orderbooks;
 
+  String _selectedSymbol = 'btcusdt';
+  String get selectedSymbol => _selectedSymbol;
+
+  /// Logic to check if selectedSymbol is favorite or not
+  bool get isFavoriteCoin =>
+      favoriteRepository.getFavoriteCoins().contains(selectedSymbol);
+
   /// Connect to order book stream
-  Future<void> connectToOrderBookStream(symbol) async {
+  Future<void> connectToOrderBookStream(String symbol) async {
     try {
+      _selectedSymbol = symbol;
       _isLoading = true;
       notifyListeners();
 
