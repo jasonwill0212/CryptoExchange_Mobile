@@ -5,12 +5,12 @@ class OrderbookRepository {
   final BinanceWebsocketService binanceWebsocketService;
 
   /// get order book stream
-  Stream<List<Orderbook>> get orderBookStream =>
+  Stream<Orderbook> get orderBookStream =>
       binanceWebsocketService.orderBookStream;
 
   OrderbookRepository({required this.binanceWebsocketService});
 
-  Future<void> connectToOrderBookStream(List<String> listcoins) async {
-    await binanceWebsocketService.connectToOrderBookStream(listcoins);
+  Future<void> connectToOrderBookStream(String symbol) async {
+    await binanceWebsocketService.connectToOrderBookStream(symbol);
   }
 }

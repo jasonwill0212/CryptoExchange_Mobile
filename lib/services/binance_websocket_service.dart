@@ -23,19 +23,17 @@ class BinanceWebsocketService {
       StreamController<List<Coin>>.broadcast();
 
   ///order book stream controller
-  final StreamController<List<Orderbook>> _orderBookStreamController =
-      StreamController<List<Orderbook>>.broadcast();
+  final StreamController<Orderbook> _orderBookStreamController =
+      StreamController<Orderbook>.broadcast();
 
   /// Expose ticker stream -> for listening
   Stream<List<Coin>> get tickerStream => _tickerStreamController.stream;
 
   /// Expose order book stream -> for listening
-  Stream<List<Orderbook>> get orderBookStream =>
-      _orderBookStreamController.stream;
+  Stream<Orderbook> get orderBookStream => _orderBookStreamController.stream;
 
   /// Map of coin data
   final Map<String, Coin> _coinDataMap = {};
-  final Map<String, Orderbook> _orderBookDataMap = {};
 
   /// Connect to ticker stream
   Future<void> connectToTickerStream(List<String> listcoin) async {
@@ -93,11 +91,18 @@ class BinanceWebsocketService {
           try {
             final jsonData = jsonDecode(data);
 
-            if (jsonData.containsKey('data')) {
-              final orderbook = Orderbook.fromJson(jsonData['data']);
-              _orderBookDataMap[orderbook.symbol] = orderbook;
+            if (jsonData == null) {
+              debugPrint('Received null data: $jsonData');
+              return;
+            }
 
-              _orderBookStreamController.add(_orderBookDataMap.values.toList());
+            // Binance orderbook stream returns data directly, NOT wrapped in 'data' key
+            if (jsonData != null) {
+              final orderbook = Orderbook.fromJson(jsonData);
+              _orderBookStreamController.add(orderbook);
+              debugPrint(
+                'Received order book data for ${orderbook.symbol}: Asks: ${orderbook.asks.length}, Bids: ${orderbook.bids.length}',
+              );
             } else {
               debugPrint('Unexpected data format: $jsonData');
             }

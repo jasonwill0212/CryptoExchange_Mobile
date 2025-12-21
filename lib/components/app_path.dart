@@ -34,6 +34,8 @@ class AppPath {
   static const String icGraph = 'assets/icons/ic_graph.svg';
   static const String icSearch = 'assets/icons/ic_search.svg';
 
+  //icons and img market screen
+  static const String imgChartMarket = 'assets/images/img_chart_market.png';
   //icons and img wallet screen
   static const String icEye = 'assets/icons/ic_eye.svg';
   static const String imgCreditcard = 'assets/images/img_credit_card.png';

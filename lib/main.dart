@@ -1,5 +1,3 @@
-import 'package:cryptoexchange/core/theme/app_theme.dart';
-import 'package:cryptoexchange/core/utils/size_config.dart';
 import 'package:cryptoexchange/provider/home_provider.dart';
 import 'package:cryptoexchange/provider/onboarding_provider.dart';
 import 'package:cryptoexchange/provider/market_provider.dart';

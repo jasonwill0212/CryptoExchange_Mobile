@@ -10,6 +10,12 @@ class AppTextStyle {
     fontWeight: FontWeight.w400,
     color: AppColor.darkNavyBlue,
   );
+  static const TextStyle tsRegulardarkNavyBlue10 = TextStyle(
+    fontFamily: fontFamily,
+    fontSize: 10,
+    fontWeight: FontWeight.w400,
+    color: AppColor.darkNavyBlue,
+  );
   static const TextStyle tsRegulardarkNavyBlue16 = TextStyle(
     fontFamily: fontFamily,
     fontSize: 16,

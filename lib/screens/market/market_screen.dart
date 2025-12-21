@@ -2,7 +2,10 @@ import 'package:cryptoexchange/components/app_color.dart';
 import 'package:cryptoexchange/components/app_path.dart';
 import 'package:cryptoexchange/components/app_text.dart';
 import 'package:cryptoexchange/components/app_textstyle.dart';
+import 'package:cryptoexchange/core/extension/context_extension.dart';
 import 'package:cryptoexchange/core/utils/size_config.dart';
+import 'package:cryptoexchange/models/coin.dart';
+import 'package:cryptoexchange/provider/home_provider.dart';
 import 'package:cryptoexchange/provider/market_provider.dart';
 import 'package:cryptoexchange/screens/market/widget/widget_tag.dart';
 import 'package:flutter/material.dart';
@@ -65,9 +68,133 @@ Widget _body(BuildContext context) {
             ),
 
             SizedBox(height: 16),
+            //header row
+            _headerRow(),
+
+            SizedBox(height: 16),
+            Consumer<HomeProvider>(
+              builder: (context, homeProvider, child) {
+                return ListView.separated(
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: homeProvider.coins.length,
+                  separatorBuilder: (context, index) => SizedBox(height: 12),
+                  itemBuilder: (context, index) {
+                    final item = homeProvider.coins[index];
+                    return _cryptoCoinCardItem(item, context);
+                  },
+                );
+              },
+            ),
           ],
         ),
       ),
+    ),
+  );
+}
+
+//card cryptocoin item
+Widget _cryptoCoinCardItem(Coin item, BuildContext context) {
+  return Container(
+    padding: const EdgeInsets.fromLTRB(14, 0, 14, 0),
+    height: context.h(76),
+    decoration: BoxDecoration(
+      color: AppColor.white,
+      borderRadius: BorderRadius.circular(12),
+      boxShadow: [
+        BoxShadow(
+          color: AppColor.brightBlue.withValues(alpha: 0.12),
+          blurRadius: 4,
+          offset: const Offset(0, 3),
+        ),
+      ],
+    ),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            AppText(
+              text: item.symbol,
+              style: AppTextStyle.tsMediumdarkNavyBlue16,
+            ),
+            SizedBox(height: 4),
+            AppText(
+              text:
+                  'Vol ${double.tryParse(item.volume.toString())?.toStringAsFixed(2) ?? '0'}',
+              style: AppTextStyle.tsRegulardarkNavyBlue14,
+            ),
+          ],
+        ),
+
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AppText(
+              text: 'Top Price',
+              style: AppTextStyle.tsRegulardarkNavyBlue10,
+            ),
+
+            Image.asset(AppPath.imgChartMarket),
+            AppText(
+              text: 'Low Price',
+              style: AppTextStyle.tsRegulardarkNavyBlue10,
+            ),
+          ],
+        ),
+        AppText(
+          text: double.parse(item.currentPrice).toStringAsFixed(2),
+          style: AppTextStyle.tsMediumdarkNavyBlue16,
+        ),
+
+        Container(
+          width: context.w(47),
+          height: context.h(16),
+          decoration: BoxDecoration(
+            color:
+                double.tryParse(item.priceChangePercent.toString()) != null &&
+                    double.parse(item.priceChangePercent.toString()) >= 0
+                ? Colors.green
+                : Colors.red,
+            borderRadius: BorderRadius.circular(6),
+          ),
+          child: Center(
+            child: AppText(
+              text:
+                  '${double.tryParse(item.priceChangePercent.toString())?.toStringAsFixed(2) ?? '0'}%',
+              style: AppTextStyle.tsRegularWhite14,
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+//header row
+Padding _headerRow() {
+  return Padding(
+    padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+    child: Row(
+      children: [
+        AppText(
+          text: 'Pair\nUSDT',
+          style: AppTextStyle.tsRegulardarkNavyBlue14,
+        ),
+        Spacer(),
+        AppText(
+          text: 'Last\nPrice',
+          style: AppTextStyle.tsRegulardarkNavyBlue14,
+        ),
+        SizedBox(width: 16),
+        AppText(
+          text: '24H\nChange',
+          style: AppTextStyle.tsRegulardarkNavyBlue14,
+        ),
+      ],
     ),
   );
 }
