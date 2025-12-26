@@ -26,7 +26,7 @@ class SettingCardWidget extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 14),
       decoration: BoxDecoration(
-        color: AppColor.white,
+        color: context.colorScheme.surface,
         borderRadius: BorderRadius.circular(14),
       ),
       child: ListView.separated(
@@ -42,7 +42,7 @@ class SettingCardWidget extends StatelessWidget {
               children: [
                 SvgPicture.asset(item.prefixIconPath),
                 const SizedBox(width: 8),
-                Text(item.title, style: context.displayMedium),
+                Text(item.title, style: context.textTheme.labelSmall),
                 const Spacer(),
                 item.hasSwitch
                     ? Switch(

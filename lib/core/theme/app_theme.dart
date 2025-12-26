@@ -7,7 +7,7 @@ class AppTheme {
   static final ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
     primaryColor: AppColor.brightBlue,
-    scaffoldBackgroundColor: AppColor.darkNavyBlue,
+    scaffoldBackgroundColor: AppColor.black,
 
     appBarTheme: AppBarTheme(
       backgroundColor: AppColor.darkNavyBlue,
@@ -23,7 +23,7 @@ class AppTheme {
     cardTheme: CardThemeData(
       color: AppColor.darkSurface,
       elevation: 2,
-      shadowColor: AppColor.brightBlue.withOpacity(0.12),
+      shadowColor: AppColor.brightBlue.withValues(alpha: 0.12),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
     ),
 
@@ -65,11 +65,11 @@ class AppTheme {
       labelLarge: AppTextStyle.tsRegulardarkNavyBlue16.copyWith(
         color: AppColor.brightBlue,
       ),
-      labelMedium: AppTextStyle.tsRegulardarkNavyBlue14.copyWith(
-        color: AppColor.brightBlue,
+      labelMedium: AppTextStyle.tsMediumdarkNavyBlue18.copyWith(
+        color: AppColor.white,
       ),
-      labelSmall: AppTextStyle.tsRegulargrayishNavy12.copyWith(
-        color: AppColor.brightBlue,
+      labelSmall: AppTextStyle.tsRegulardarkNavyBlue16.copyWith(
+        color: AppColor.white,
       ),
     ),
 
@@ -90,7 +90,7 @@ class AppTheme {
 
     /// Divider Theme
     dividerTheme: DividerThemeData(
-      color: AppColor.grayishNavy.withOpacity(0.3),
+      color: AppColor.grayishNavy.withValues(alpha: 0.3),
       thickness: 1,
     ),
 
@@ -118,7 +118,7 @@ class AppTheme {
     cardTheme: CardThemeData(
       color: AppColor.white,
       elevation: 2,
-      shadowColor: AppColor.brightBlue.withOpacity(0.12),
+      shadowColor: AppColor.brightBlue.withValues(alpha: 0.12),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
     ),
 
@@ -160,11 +160,11 @@ class AppTheme {
       labelLarge: AppTextStyle.tsRegulardarkNavyBlue16.copyWith(
         color: AppColor.brightBlue,
       ),
-      labelMedium: AppTextStyle.tsRegulardarkNavyBlue14.copyWith(
-        color: AppColor.brightBlue,
+      labelMedium: AppTextStyle.tsMediumdarkNavyBlue18.copyWith(
+        color: Color(0xFF11183C),
       ),
-      labelSmall: AppTextStyle.tsRegulargrayishNavy12.copyWith(
-        color: AppColor.brightBlue,
+      labelSmall: AppTextStyle.tsRegulardarkNavyBlue16.copyWith(
+        color: Color(0xFF11183C),
       ),
     ),
 
@@ -185,7 +185,7 @@ class AppTheme {
 
     /// Divider Theme
     dividerTheme: DividerThemeData(
-      color: AppColor.grayishNavy.withOpacity(0.3),
+      color: AppColor.grayishNavy.withValues(alpha: 0.3),
       thickness: 1,
     ),
 

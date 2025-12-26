@@ -4,7 +4,6 @@ import 'package:cryptoexchange/core/enum/enum.dart';
 import 'package:cryptoexchange/provider/order_book_provider.dart';
 import 'package:cryptoexchange/screens/trade/widget/dropdown.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
 class OrderbookSectionWidget extends StatelessWidget {

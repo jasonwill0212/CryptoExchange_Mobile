@@ -2,7 +2,7 @@ import 'package:cryptoexchange/components/app_button.dart';
 import 'package:cryptoexchange/components/app_color.dart';
 import 'package:cryptoexchange/components/app_path.dart';
 import 'package:cryptoexchange/core/enum/enum.dart';
-import 'package:cryptoexchange/core/utils/size_config.dart';
+import 'package:cryptoexchange/core/extension/context_extension.dart';
 import 'package:flutter/material.dart';
 
 class BottomButton extends StatelessWidget {
@@ -10,40 +10,36 @@ class BottomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: Container(
-            padding: EdgeInsets.all(16),
-            height: context.h(115),
-            color: AppColor.almostWhite,
-            child: Center(
-              child: AppButton(
-                iconPath: AppPath.icRecieve,
-                contentButtonType: ContentButtonType.prefixIcon,
-                textButton: 'SELL',
-                buttonType: ButtonType.second,
-              ),
-            ),
+    final buttonWidth = (context.screenWidth - 64) / 2;
+    return SafeArea(
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppColor.white,
+          border: Border(
+            top: BorderSide(color: AppColor.lightgrayishblue, width: 1),
           ),
         ),
-        SizedBox(width: context.w(16)),
-        Expanded(
-          child: Container(
-            padding: EdgeInsets.all(16),
-            height: context.h(115),
-            color: AppColor.almostWhite,
-            child: Center(
-              child: AppButton(
-                iconPath: AppPath.icSend,
-                contentButtonType: ContentButtonType.suffixIcon,
-                textButton: 'BUY',
-                buttonType: ButtonType.normal,
-              ),
+        padding: EdgeInsets.all(15),
+        child: Row(
+          children: [
+            AppButton(
+              width: buttonWidth,
+              iconPath: AppPath.icRecieve,
+              contentButtonType: ContentButtonType.prefixIcon,
+              textButton: 'SELL',
+              buttonType: ButtonType.second,
             ),
-          ),
+            SizedBox(width: 32),
+            AppButton(
+              width: buttonWidth,
+              iconPath: AppPath.icSend,
+              contentButtonType: ContentButtonType.suffixIcon,
+              textButton: 'BUY',
+              buttonType: ButtonType.normal,
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }

@@ -1,11 +1,8 @@
-import 'package:cryptoexchange/components/app_color.dart';
 import 'package:cryptoexchange/components/app_text.dart';
 import 'package:cryptoexchange/components/app_textstyle.dart';
 import 'package:cryptoexchange/core/utils/size_config.dart';
 import 'package:cryptoexchange/provider/home_provider.dart';
 import 'package:cryptoexchange/provider/order_book_provider.dart';
-import 'package:cryptoexchange/screens/trading%20chart/trading_chart.dart';
-import 'package:cryptoexchange/screens/trading%20chart/widgets/webview_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -33,9 +30,6 @@ class _ListpopularPairsWidgetState extends State<ListpopularPairsWidget> {
               final item = homeProvider.coins[index];
               return GestureDetector(
                 onTap: () {
-                  orderBookProvider.setSelectedSymbol(
-                    item.symbol.toLowerCase(),
-                  );
                   orderBookProvider.setSelectedCoin(item);
                   orderBookProvider.connectToOrderBookStream(
                     item.symbol.toLowerCase(),

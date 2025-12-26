@@ -1,4 +1,3 @@
-import 'package:cryptoexchange/components/app_color.dart';
 import 'package:flutter/material.dart';
 
 class WidgetBoxDecoration {

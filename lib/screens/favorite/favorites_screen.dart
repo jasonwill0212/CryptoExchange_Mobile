@@ -1,4 +1,3 @@
-import 'package:cryptoexchange/components/app_color.dart';
 import 'package:cryptoexchange/components/app_path.dart';
 import 'package:cryptoexchange/components/app_text.dart';
 import 'package:cryptoexchange/components/app_textstyle.dart';

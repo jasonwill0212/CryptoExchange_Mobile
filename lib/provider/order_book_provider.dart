@@ -30,11 +30,7 @@ class OrderBookProvider extends ChangeNotifier {
 
   void setSelectedCoin(Coin coin) {
     _selectedCoin = coin;
-    notifyListeners();
-  }
-
-  void setSelectedSymbol(String symbol) {
-    _selectedSymbol = symbol;
+    _selectedSymbol = coin.symbol;
     notifyListeners();
   }
 

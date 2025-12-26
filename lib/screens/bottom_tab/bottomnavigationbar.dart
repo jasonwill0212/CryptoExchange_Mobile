@@ -1,4 +1,3 @@
-import 'package:cryptoexchange/components/app_color.dart';
 import 'package:cryptoexchange/components/app_path.dart';
 import 'package:cryptoexchange/provider/bottomnavigation_provider.dart';
 import 'package:cryptoexchange/screens/favorite/favorites_screen.dart';

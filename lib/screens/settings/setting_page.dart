@@ -4,6 +4,7 @@ import 'package:cryptoexchange/components/app_path.dart';
 import 'package:cryptoexchange/components/app_text.dart';
 import 'package:cryptoexchange/components/app_textstyle.dart';
 import 'package:cryptoexchange/core/enum/enum.dart';
+import 'package:cryptoexchange/core/extension/context_extension.dart';
 import 'package:cryptoexchange/core/utils/size_config.dart';
 import 'package:cryptoexchange/screens/settings/widget/widget_tableview.dart';
 import 'package:flutter/material.dart';
@@ -35,9 +36,7 @@ AppBar _appBar(BuildContext context) {
     centerTitle: true,
     title: AppText(
       text: 'Settings',
-      style: AppTextStyle.tsMediumdarkNavyBlue18.copyWith(
-        color: Theme.of(context).colorScheme.onSurface,
-      ),
+      style: context.theme.textTheme.labelMedium,
     ),
     actions: [
       Padding(

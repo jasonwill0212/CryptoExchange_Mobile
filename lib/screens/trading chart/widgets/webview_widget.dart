@@ -22,6 +22,12 @@ class _WebviewWidgetState extends State<WebviewWidget> {
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setBackgroundColor(Colors.black)
       ..loadHtmlString(_html(widget.symbol));
+    //  ..loadRequest(
+    //   Uri.parse(
+    //     // 'https://www.tradingview.com/chart/?symbol=BINANCE%3A$symbol',
+    //     'https://www.youtube.com/',
+    //   ),
+    // );
   }
 
   @override
