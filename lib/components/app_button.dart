@@ -16,11 +16,11 @@ class AppButton extends StatelessWidget {
   final String? iconPath;
 
   const AppButton({
-    required this.contentButtonType,
+    this.contentButtonType = ContentButtonType.normal,
     super.key,
     this.ontap,
     required this.textButton,
-    required this.buttonType,
+    this.buttonType = ButtonType.normal,
     this.width,
     this.height,
     this.iconPath,
