@@ -95,14 +95,15 @@ class MyAppBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = context.watch<ThemeProvider>();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-
+      title: 'Crypto Exchange',
       initialRoute: AppRoute.onboardingPage,
       routes: AppRoute().routes,
-      themeMode: ThemeMode.system,
-      theme: context.watch<ThemeProvider>().themeData,
+      themeMode: themeProvider.isDark ? ThemeMode.dark : ThemeMode.light,
+      theme: themeProvider.themeData,
+      darkTheme: themeProvider.themeData,
     );
   }
 }

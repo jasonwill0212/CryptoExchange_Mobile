@@ -7,6 +7,7 @@ import 'package:cryptoexchange/core/enum/enum.dart';
 import 'package:cryptoexchange/core/utils/size_config.dart';
 import 'package:cryptoexchange/screens/settings/widget/widget_tableview.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 
 class SettingPage extends StatefulWidget {
@@ -17,25 +18,26 @@ class SettingPage extends StatefulWidget {
 }
 
 class _SettingPageState extends State<SettingPage> {
-  final String email = 'thuongdo@gmail.com';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      appBar: _appBar(),
+      appBar: _appBar(context),
       body: SafeArea(child: _body(context)),
     );
   }
 }
 
 //appbar
-AppBar _appBar() {
+AppBar _appBar(BuildContext context) {
   return AppBar(
-    backgroundColor: AppColor.almostWhite,
+    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
     centerTitle: true,
     title: AppText(
       text: 'Settings',
-      style: AppTextStyle.tsMediumdarkNavyBlue18,
+      style: AppTextStyle.tsMediumdarkNavyBlue18.copyWith(
+        color: Theme.of(context).colorScheme.onSurface,
+      ),
     ),
     actions: [
       Padding(
@@ -106,7 +108,11 @@ Widget _body(BuildContext context) {
         ),
         SizedBox(height: 24),
         //button logout
-        AppButton(textButton: 'Log out', buttonType: ButtonType.second),
+        AppButton(
+          contentButtonType: ContentButtonType.normal,
+          textButton: 'Log out',
+          buttonType: ButtonType.second,
+        ),
       ],
     ),
   );
@@ -122,6 +128,7 @@ Padding texttableview(String text) {
 
 //infomation avatar and name
 Container _infoAvatarName(BuildContext context) {
+  final String email = 'thuongdo@gmail.com';
   return Container(
     height: context.w(80),
     width: context.w(344),
@@ -131,7 +138,7 @@ Container _infoAvatarName(BuildContext context) {
       borderRadius: BorderRadius.circular(14),
       boxShadow: [
         BoxShadow(
-          color: AppColor.brightBlue.withValues(alpha: 0.12),
+          color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.12),
           blurRadius: 4,
           offset: const Offset(0, 3),
         ),
@@ -148,10 +155,6 @@ Container _infoAvatarName(BuildContext context) {
               children: [
                 CircleAvatar(foregroundImage: AssetImage(AppPath.imgAvatar)),
                 SizedBox(width: 12),
-                //name and gmail
-                /// TODO: Implement masked email display
-                /// Implement global function to mask email
-                /// Example: thuongdo@gmail.com -> th**@***.com
                 AppText(
                   text: 'Dmutro\nto**@***.com',
                   style: AppTextStyle.tsRegulardarkNavyBlue14,
@@ -174,9 +177,10 @@ Container _infoAvatarName(BuildContext context) {
                 SizedBox(width: 4),
                 InkWell(
                   onTap: () {
-                    /// TODO: Implement copy to clipboard functionality
-                    /// copy real email to clipboard
-                    /// show snackbar 'Copied to clipboard' success message
+                    Clipboard.setData(ClipboardData(text: email));
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("$email copied to clipboard")),
+                    );
                   },
                   child: SvgPicture.asset(AppPath.icCoppy),
                 ),

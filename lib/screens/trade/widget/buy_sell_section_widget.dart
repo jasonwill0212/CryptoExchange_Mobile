@@ -3,8 +3,10 @@ import 'package:cryptoexchange/components/app_color.dart';
 import 'package:cryptoexchange/components/app_text.dart';
 import 'package:cryptoexchange/components/app_textstyle.dart';
 import 'package:cryptoexchange/core/enum/enum.dart';
+import 'package:cryptoexchange/provider/order_book_provider.dart';
 import 'package:cryptoexchange/screens/trade/widget/segmented_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 class BuySellSectionWidget extends StatefulWidget {
@@ -51,7 +53,7 @@ class _BuySellSectionWidgetState extends State<BuySellSectionWidget> {
         SizedBox(
           width: 188,
           child: SfSlider(
-            activeColor: AppColor.brightBlue,
+            activeColor: Theme.of(context).colorScheme.primary,
             min: 0.0,
             max: 100.0,
             value: 50,
@@ -70,7 +72,9 @@ class _BuySellSectionWidgetState extends State<BuySellSectionWidget> {
 
         //Buy sell button
         AppButton(
-          textButton: 'Buy BTC',
+          contentButtonType: ContentButtonType.normal,
+          textButton:
+              'Buy ${context.watch<OrderBookProvider>().selectedSymbol.toUpperCase()}',
           buttonType: ButtonType.normal,
           width: 188,
           height: 48,
@@ -85,7 +89,7 @@ class _BuySellSectionWidgetState extends State<BuySellSectionWidget> {
       width: 188,
       height: 32,
       decoration: BoxDecoration(
-        color: AppColor.white,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(8),
         boxShadow: [
           BoxShadow(
@@ -134,7 +138,7 @@ class _BuySellSectionWidgetState extends State<BuySellSectionWidget> {
       width: 188,
       height: 32,
       decoration: BoxDecoration(
-        color: AppColor.white,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(8),
         boxShadow: [
           BoxShadow(
@@ -150,7 +154,10 @@ class _BuySellSectionWidgetState extends State<BuySellSectionWidget> {
           children: [
             AppText(text: 'Limit', style: AppTextStyle.tsRegulardarkNavyBlue14),
             Spacer(),
-            Icon(Icons.keyboard_arrow_down, color: AppColor.darkNavyBlue),
+            Icon(
+              Icons.keyboard_arrow_down,
+              color: Theme.of(context).iconTheme.color,
+            ),
           ],
         ),
       ),

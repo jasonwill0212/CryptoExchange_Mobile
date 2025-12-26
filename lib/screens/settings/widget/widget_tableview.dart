@@ -26,7 +26,7 @@ class SettingCardWidget extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 14),
       decoration: BoxDecoration(
-        color: Theme.of(context).primaryColor,
+        color: AppColor.white,
         borderRadius: BorderRadius.circular(14),
       ),
       child: ListView.separated(

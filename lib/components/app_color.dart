@@ -1,6 +1,8 @@
 import 'package:flutter/widgets.dart';
 
 class AppColor {
+  static const Color darkSurface = Color(0xFF22283A);
+  static const Color black = Color(0xFF121212);
   static const Color darkNavyBlue = Color(0XFF11183C);
   static const Color brightBlue = Color(0XFF2F66F6);
   static const Color white = Color(0XFFFFFFFF);

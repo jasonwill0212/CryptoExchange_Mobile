@@ -1,3 +1,4 @@
+import 'package:cryptoexchange/models/coin.dart';
 import 'package:cryptoexchange/models/orderbook.dart';
 import 'package:cryptoexchange/repositories/favorite_repository.dart';
 import 'package:cryptoexchange/repositories/orderbook_repository.dart';
@@ -24,6 +25,18 @@ class OrderBookProvider extends ChangeNotifier {
 
   String _selectedSymbol = 'btcusdt';
   String get selectedSymbol => _selectedSymbol;
+  Coin? _selectedCoin;
+  Coin? get selectedCoin => _selectedCoin;
+
+  void setSelectedCoin(Coin coin) {
+    _selectedCoin = coin;
+    notifyListeners();
+  }
+
+  void setSelectedSymbol(String symbol) {
+    _selectedSymbol = symbol;
+    notifyListeners();
+  }
 
   /// Logic to check if selectedSymbol is favorite or not
   bool get isFavoriteCoin =>

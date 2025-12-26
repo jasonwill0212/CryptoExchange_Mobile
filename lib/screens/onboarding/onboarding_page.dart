@@ -76,6 +76,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
               ),
             ),
             AppButton(
+              contentButtonType: ContentButtonType.normal,
               textButton: 'Next',
               buttonType: ButtonType.normal,
               ontap: () async {

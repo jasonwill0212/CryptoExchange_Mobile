@@ -2,6 +2,7 @@ import 'package:cryptoexchange/components/app_path.dart';
 import 'package:cryptoexchange/components/app_text.dart';
 import 'package:cryptoexchange/components/app_textstyle.dart';
 import 'package:cryptoexchange/core/extension/context_extension.dart';
+import 'package:cryptoexchange/core/theme/app_theme.dart';
 import 'package:cryptoexchange/core/utils/string_helper.dart';
 import 'package:cryptoexchange/models/coin.dart';
 import 'package:cryptoexchange/provider/home_provider.dart';
@@ -73,7 +74,7 @@ Column _body(BuildContext context) {
       SizedBox(height: 4),
       AppText(
         text: '\$2,760.23',
-        style: AppTextStyle.tssemiBolddarkNavyBlue32.copyWith(height: 1.0),
+        style: AppTheme.darkTheme.textTheme.titleLarge,
       ),
       SizedBox(height: 4),
       AppText(text: '+2.60%', style: AppTextStyle.tsRegulardarkNavyBlue16),
@@ -145,7 +146,7 @@ Container _cardCoinPortfolio(BuildContext context, Coin item) {
   return Container(
     width: context.screenWidth * 0.9,
     height: context.screenHeight * 0.08,
-    decoration: WidgetBoxDecoration.boxDecoration,
+    decoration: WidgetBoxDecoration.boxDecoration(context),
     padding: const EdgeInsets.fromLTRB(14, 0, 8, 0),
     child: Row(
       children: [
@@ -198,7 +199,7 @@ Container _cardCoin(BuildContext context, Coin item) {
   final percent = double.tryParse(item.priceChangePercent.toString()) ?? 0;
   return Container(
     width: context.screenWidth * 0.41,
-    decoration: WidgetBoxDecoration.boxDecoration,
+    decoration: WidgetBoxDecoration.boxDecoration(context),
     padding: const EdgeInsets.fromLTRB(12, 12, 12, 12),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -256,9 +257,9 @@ Padding _textandMore(String text) {
     padding: const EdgeInsets.fromLTRB(16, 24, 16, 8),
     child: Row(
       children: [
-        AppText(text: text, style: AppTextStyle.tsMediumdarkNavyBlue16),
+        AppText(text: text, style: AppTheme.darkTheme.textTheme.displayMedium),
         Spacer(),
-        AppText(text: 'More', style: AppTextStyle.tsMediumbrightBlue16),
+        AppText(text: 'More', style: AppTheme.darkTheme.textTheme.labelMedium),
       ],
     ),
   );

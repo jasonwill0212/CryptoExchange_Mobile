@@ -27,7 +27,9 @@ class WidgetTag extends StatelessWidget {
               duration: const Duration(milliseconds: 100),
               width: context.w(74),
               decoration: BoxDecoration(
-                color: isSelected ? AppColor.brightBlue : AppColor.white,
+                color: isSelected
+                    ? Theme.of(context).colorScheme.primary
+                    : Theme.of(context).colorScheme.surface,
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
                   color: isSelected
@@ -40,7 +42,9 @@ class WidgetTag extends StatelessWidget {
                   text: tags[index],
                   style: isSelected
                       ? AppTextStyle.tsRegularWhite14
-                      : AppTextStyle.tsRegulargrayishNavy14,
+                      : AppTextStyle.tsRegulargrayishNavy14.copyWith(
+                          color: Theme.of(context).textTheme.bodyMedium?.color,
+                        ),
                 ),
               ),
             ),

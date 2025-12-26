@@ -4,6 +4,7 @@ import 'package:cryptoexchange/core/enum/enum.dart';
 import 'package:cryptoexchange/provider/order_book_provider.dart';
 import 'package:cryptoexchange/screens/trade/widget/dropdown.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
 class OrderbookSectionWidget extends StatelessWidget {
@@ -112,7 +113,7 @@ class OrderbookSectionWidget extends StatelessWidget {
         SizedBox(
           width: 65,
           child: AppText(
-            text: askEntry.quantity.toStringAsFixed(5),
+            text: askEntry.quantity.toStringAsFixed(2).toString(),
             style: AppTextStyle.tsRegularred14,
           ),
         ),
@@ -128,7 +129,7 @@ class OrderbookSectionWidget extends StatelessWidget {
         SizedBox(
           width: 65,
           child: AppText(
-            text: bidEntry.price.toStringAsFixed(2),
+            text: bidEntry.price.toStringAsFixed(2).toString(),
             style: AppTextStyle.tsRegulargreen14,
             textAlign: TextAlign.start,
           ),
@@ -138,7 +139,7 @@ class OrderbookSectionWidget extends StatelessWidget {
         SizedBox(
           width: 65,
           child: AppText(
-            text: bidEntry.quantity.toStringAsFixed(5),
+            text: bidEntry.quantity.toStringAsFixed(2).toString(),
             style: AppTextStyle.tsRegulargreen14,
           ),
         ),

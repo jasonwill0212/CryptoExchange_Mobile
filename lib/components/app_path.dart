@@ -36,6 +36,8 @@ class AppPath {
 
   //icons and img market screen
   static const String imgChartMarket = 'assets/images/img_chart_market.png';
+  static const String icSend = 'assets/icons/ic_send.svg';
+  static const String icRecieve = 'assets/icons/ic_recieve.svg';
   //icons and img wallet screen
   static const String icEye = 'assets/icons/ic_eye.svg';
   static const String imgCreditcard = 'assets/images/img_credit_card.png';

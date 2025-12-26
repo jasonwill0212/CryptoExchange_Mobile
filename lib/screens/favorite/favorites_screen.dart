@@ -16,19 +16,21 @@ class FavoritesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.almostWhite,
-      appBar: _appBar(),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      appBar: _appBar(context),
       body: _body(),
     );
   }
 
-  AppBar _appBar() {
+  AppBar _appBar(BuildContext context) {
     return AppBar(
-      backgroundColor: AppColor.almostWhite,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       centerTitle: true,
       title: AppText(
         text: 'Favorites',
-        style: AppTextStyle.tsMediumdarkNavyBlue18,
+        style: AppTextStyle.tsMediumdarkNavyBlue18.copyWith(
+          color: Theme.of(context).colorScheme.onSurface,
+        ),
       ),
       actions: [
         Padding(
@@ -109,11 +111,13 @@ class FavoritesScreen extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(14, 0, 14, 0),
       height: context.h(76),
       decoration: BoxDecoration(
-        color: AppColor.white,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: AppColor.brightBlue.withValues(alpha: 0.12),
+            color: Theme.of(
+              context,
+            ).colorScheme.primary.withValues(alpha: 0.12),
             blurRadius: 4,
             offset: const Offset(0, 3),
           ),

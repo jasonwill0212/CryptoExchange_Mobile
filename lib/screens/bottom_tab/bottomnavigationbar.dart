@@ -27,7 +27,7 @@ class Bottomnavigationbar extends StatelessWidget {
       builder: (context, provider, _) {
         return Scaffold(
           body: IndexedStack(index: provider.seletedIndex, children: pages),
-          bottomNavigationBar: _bottomNavigationBar(provider),
+          bottomNavigationBar: _bottomNavigationBar(provider, context),
         );
       },
     );
@@ -36,13 +36,16 @@ class Bottomnavigationbar extends StatelessWidget {
 
 BottomNavigationBar _bottomNavigationBar(
   BottomnavigationProvider bottomProvider,
+  BuildContext context,
 ) {
+  final unselectedColor =
+      Theme.of(context).textTheme.bodyMedium?.color ?? Color(0XFF696F8C);
   return BottomNavigationBar(
-    backgroundColor: AppColor.white,
+    backgroundColor: Theme.of(context).colorScheme.surface,
     currentIndex: bottomProvider.seletedIndex,
     onTap: bottomProvider.setSeletedIndex,
-    selectedItemColor: AppColor.brightBlue,
-    unselectedItemColor: Color(0XFF696F8C),
+    selectedItemColor: Theme.of(context).colorScheme.primary,
+    unselectedItemColor: unselectedColor,
     type: BottomNavigationBarType.fixed,
     items: [
       BottomNavigationBarItem(
@@ -50,8 +53,8 @@ BottomNavigationBar _bottomNavigationBar(
           AppPath.icHome,
           colorFilter: ColorFilter.mode(
             bottomProvider.seletedIndex == 0
-                ? AppColor.brightBlue
-                : Color(0XFF696F8C),
+                ? Theme.of(context).colorScheme.primary
+                : unselectedColor,
             BlendMode.srcIn,
           ),
         ),
@@ -62,8 +65,8 @@ BottomNavigationBar _bottomNavigationBar(
           AppPath.icTrade,
           colorFilter: ColorFilter.mode(
             bottomProvider.seletedIndex == 1
-                ? AppColor.brightBlue
-                : Color(0XFF696F8C),
+                ? Theme.of(context).colorScheme.primary
+                : unselectedColor,
             BlendMode.srcIn,
           ),
         ),
@@ -74,8 +77,8 @@ BottomNavigationBar _bottomNavigationBar(
           AppPath.icMarket,
           colorFilter: ColorFilter.mode(
             bottomProvider.seletedIndex == 2
-                ? AppColor.brightBlue
-                : Color(0XFF696F8C),
+                ? Theme.of(context).colorScheme.primary
+                : unselectedColor,
             BlendMode.srcIn,
           ),
         ),
@@ -86,8 +89,8 @@ BottomNavigationBar _bottomNavigationBar(
           AppPath.icStar,
           colorFilter: ColorFilter.mode(
             bottomProvider.seletedIndex == 3
-                ? AppColor.brightBlue
-                : Color(0XFF696F8C),
+                ? Theme.of(context).colorScheme.primary
+                : unselectedColor,
             BlendMode.srcIn,
           ),
         ),
@@ -98,8 +101,8 @@ BottomNavigationBar _bottomNavigationBar(
           AppPath.icWallet,
           colorFilter: ColorFilter.mode(
             bottomProvider.seletedIndex == 4
-                ? AppColor.brightBlue
-                : Color(0XFF696F8C),
+                ? Theme.of(context).colorScheme.primary
+                : unselectedColor,
             BlendMode.srcIn,
           ),
         ),

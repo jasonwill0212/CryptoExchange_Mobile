@@ -52,7 +52,7 @@ class AppSegmented extends StatelessWidget {
                         tabs[index],
                         style: TextStyle(
                           fontSize: context.w(14),
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.w400,
                           color: isSelected
                               ? AppColor.darkNavyBlue
                               : AppColor.grayishNavy,

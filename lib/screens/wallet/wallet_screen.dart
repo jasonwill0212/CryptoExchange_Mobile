@@ -20,8 +20,8 @@ class _WalletScreenState extends State<WalletScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.almostWhite,
-      appBar: _appBar(),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      appBar: _appBar(context),
       body: _body(context),
     );
   }
@@ -48,7 +48,9 @@ Widget _body(BuildContext context) {
             children: [
               AppText(
                 text: 'My Balance: \$12,345.67',
-                style: AppTextStyle.tsMediumdarkNavyBlue16,
+                style: AppTextStyle.tsMediumdarkNavyBlue16.copyWith(
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
               ),
               SvgPicture.asset(AppPath.icEye),
             ],
@@ -65,10 +67,15 @@ Widget _body(BuildContext context) {
   );
 }
 
-AppBar _appBar() {
+AppBar _appBar(BuildContext context) {
   return AppBar(
-    backgroundColor: AppColor.almostWhite,
-    title: AppText(text: 'Wallet', style: AppTextStyle.tsMediumdarkNavyBlue18),
+    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+    title: AppText(
+      text: 'Wallet',
+      style: AppTextStyle.tsMediumdarkNavyBlue18.copyWith(
+        color: Theme.of(context).colorScheme.onSurface,
+      ),
+    ),
     centerTitle: true,
   );
 }

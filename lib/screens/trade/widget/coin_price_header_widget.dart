@@ -7,6 +7,7 @@ import 'package:cryptoexchange/core/utils/string_helper.dart';
 import 'package:cryptoexchange/models/coin.dart';
 import 'package:cryptoexchange/provider/home_provider.dart';
 import 'package:cryptoexchange/provider/order_book_provider.dart';
+import 'package:cryptoexchange/routes/app_route.dart';
 import 'package:cryptoexchange/screens/home/widget/widget_boxdecoration.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -70,8 +71,13 @@ class CoinPriceHeaderWidget extends StatelessWidget {
                     style: AppTextStyle.tsRegulardarkNavyBlue16,
                   ),
                   Icon(Icons.keyboard_arrow_down, color: AppColor.darkNavyBlue),
-                  const Spacer(),
-                  SvgPicture.asset(AppPath.icGraph),
+                  Spacer(),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, AppRoute.tradeChartPage);
+                    },
+                    child: SvgPicture.asset(AppPath.icGraph),
+                  ),
                 ],
               ),
               SizedBox(height: 8),
@@ -117,7 +123,7 @@ class CoinPriceHeaderWidget extends StatelessWidget {
       child: Container(
         width: context.screenWidth * 0.9,
         height: context.screenHeight * 0.08,
-        decoration: WidgetBoxDecoration.boxDecoration,
+        decoration: WidgetBoxDecoration.boxDecoration(context),
         padding: const EdgeInsets.fromLTRB(14, 0, 8, 0),
         child: Row(
           children: [

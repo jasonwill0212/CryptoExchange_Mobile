@@ -39,7 +39,7 @@ class _TradeScreenState extends State<TradeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.almostWhite,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: _appBar(),
       body: SingleChildScrollView(child: _body(context)),
     );
@@ -47,11 +47,16 @@ class _TradeScreenState extends State<TradeScreen> {
 
   AppBar _appBar() {
     return AppBar(
-      backgroundColor: AppColor.almostWhite,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       centerTitle: true,
       leadingWidth: 0,
       automaticallyImplyLeading: false,
-      title: AppText(text: 'Trade', style: AppTextStyle.tsMediumdarkNavyBlue18),
+      title: AppText(
+        text: 'Trade',
+        style: AppTextStyle.tsMediumdarkNavyBlue18.copyWith(
+          color: Theme.of(context).colorScheme.onSurface,
+        ),
+      ),
       actions: [
         Padding(
           padding: const EdgeInsets.only(right: 15),
@@ -65,7 +70,7 @@ class _TradeScreenState extends State<TradeScreen> {
               Icons.favorite_border,
               color: context.watch<OrderBookProvider>().isFavoriteCoin
                   ? AppColor.red
-                  : AppColor.darkNavyBlue,
+                  : Theme.of(context).iconTheme.color,
             ),
           ),
         ),

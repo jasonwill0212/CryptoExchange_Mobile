@@ -42,6 +42,7 @@ Center _body(context) {
           child: AppSocial(type: SocialType.apple),
         ),
         AppButton(
+          contentButtonType: ContentButtonType.normal,
           textButton: 'Sign up with email',
           buttonType: ButtonType.normal,
           ontap: () {
@@ -56,6 +57,7 @@ Center _body(context) {
           ),
         ),
         AppButton(
+          contentButtonType: ContentButtonType.normal,
           textButton: 'Sign in',
           buttonType: ButtonType.second,
           ontap: () {
